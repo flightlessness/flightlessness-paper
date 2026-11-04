@@ -1,7 +1,6 @@
 baseURL: "https://flightlessness.github.io/flightlessness-paper/"
 languageCode: "zh-cn"
 title: "flightlessness"
-theme: "paper"
 
 enableRobotsTXT: true
 enableGitInfo: true
