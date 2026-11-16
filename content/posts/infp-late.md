@@ -11,4 +11,6 @@ Solari遍历过每一次抵达
 我在时空中不断跋涉  
 裙摆上沾满了暗物质的尘埃
 
-相关视频：[AI写的文案，真是褶皱中带着点吊诡](https://b23.tv/XjfxrPM)
+---
+
+[https://b23.tv/XjfxrPM](https://b23.tv/XjfxrPM)
