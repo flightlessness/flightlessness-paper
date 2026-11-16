@@ -10,4 +10,6 @@ tags: ["爱情"]
 沿熵增结成的痂  
 拓印孢子的国境线
 
-相关视频：[AI写的文案，真是褶皱中带着点吊诡](https://b23.tv/XjfxrPM)
+---
+
+[https://b23.tv/XjfxrPM](https://b23.tv/XjfxrPM)
