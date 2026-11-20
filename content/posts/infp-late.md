@@ -2,6 +2,8 @@
 title: "迟到"
 date: 2026-08-31T00:00:00-08:00
 draft: false
+categories:
+  - 诗
 tags: ["INFP"]
 ---
 
