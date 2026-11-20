@@ -34,10 +34,16 @@
       {{- end -}}
     </nav>
     {{- end -}}
-    <nav class="mt-12 flex justify-center space-x-8 lg:mt-0 lg:items-center ltr:lg:ml-8 rtl:space-x-reverse rtl:lg:mr-8 dark:invert" aria-label="Site navigation">
-      <a class="h-7 w-7 text-[0px] [background:url(./home.svg)_center_center/contain_no-repeat] lg:h-6 lg:w-6" href="{{- "" | absURL -}}" aria-label="Home" title="Home">Home</a>
-      <a class="h-7 w-7 text-[0px] [background:url(./categories.svg)_center_center/contain_no-repeat] lg:h-6 lg:w-6" href="{{- "categories/" | absURL -}}" aria-label="Categories" title="Categories">Categories</a>
-      <a class="h-7 w-7 text-[0px] [background:url(./tags.svg)_center_center/contain_no-repeat] lg:h-6 lg:w-6" href="{{- "tags/" | absURL -}}" aria-label="Tags" title="Tags">Tags</a>
+    <nav class="mt-12 flex items-center justify-center gap-8 lg:mt-0 ltr:lg:ml-8 rtl:lg:mr-8 dark:invert" aria-label="Site navigation">
+      <a class="flex h-7 w-7 items-center justify-center lg:h-6 lg:w-6" href="{{- "" | absURL -}}" aria-label="Home" title="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-7h6v7"/></svg>
+      </a>
+      <a class="flex h-7 w-7 items-center justify-center lg:h-6 lg:w-6" href="{{- "categories/" | absURL -}}" aria-label="Categories" title="Categories">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </a>
+      <a class="flex h-7 w-7 items-center justify-center lg:h-6 lg:w-6" href="{{- "tags/" | absURL -}}" aria-label="Tags" title="Tags">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3.4 13.4a2 2 0 0 1 0-2.8l7.2-7.2A2 2 0 0 1 12 2.8H19a2 2 0 0 1 2 2V12a2 2 0 0 1-.4 1.4Z"/><circle cx="16.5" cy="7.5" r="1"/></svg>
+      </a>
     </nav>
   </div>
 </header>
