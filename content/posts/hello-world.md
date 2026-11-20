@@ -2,6 +2,10 @@
 title: "Hello, Hugo"
 date: 2026-11-04T00:00:00+00:00
 draft: false
+categories:
+  - 隐藏
+build:
+  render: link
 ---
 
 新博客的第一篇文章。
