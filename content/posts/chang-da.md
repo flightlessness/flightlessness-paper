@@ -5,9 +5,6 @@ draft: false
 categories:
   - 随笔
   - 隐藏
-tags:
-  - 随笔
-  - 文章
 build:
   render: link
 ---
