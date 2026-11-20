@@ -2,6 +2,8 @@
 title: "事后"
 date: 2019-07-26T00:00:00+08:00
 draft: false
+categories:
+  - 诗
 tags: ["风月"]
 ---
 
