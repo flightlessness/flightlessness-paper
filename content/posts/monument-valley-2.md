@@ -2,6 +2,8 @@
 title: "纪念碑谷 2"
 date: 2017-11-02T00:00:00+08:00
 draft: false
+categories:
+  - 诗
 ---
 
 暮色倾泻在碑谷的屋顶  
