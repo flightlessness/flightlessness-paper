@@ -28,13 +28,9 @@
     </nav>
     {{- end -}}
     {{- with $.Scratch.Get "social_list" -}}
-    <nav class="mt-12 flex justify-center space-x-10 lg:mt-0 lg:items-center ltr:lg:ml-14 rtl:space-x-reverse rtl:lg:mr-14 dark:invert">
+    <nav class="mt-12 flex items-center justify-center gap-8 lg:mt-0 ltr:lg:ml-14 rtl:lg:mr-14 dark:invert" aria-label="Site navigation">
       {{- range . -}}
-      <a class="h-7 w-7 text-[0px] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6" style="--url: url(./{{- . -}}.svg)" href="{{- if eq . "rss" -}}{{- "index.xml" | absURL -}}{{- else if eq . "mastodon" -}}{{- index site.Params . -}}{{- else -}}{{- if eq . "threads" -}}https://threads.net/{{- else if eq . "bluesky" -}}https://bsky.app/profile/{{- else -}}https://{{- . -}}.com/{{- end -}}{{- if eq . "linkedin" -}}in/{{- end -}}{{- index site.Params . -}}{{- end -}}" target="_blank" rel="{{- if eq . "rss" -}}alternate{{- else -}}me{{- end -}}">{{- . -}}</a>
-      {{- end -}}
-    </nav>
-    {{- end -}}
-    <nav class="mt-12 flex items-center justify-center gap-8 lg:mt-0 ltr:lg:ml-8 rtl:lg:mr-8 dark:invert" aria-label="Site navigation">
+      {{- if eq . "rss" -}}
       <a class="flex h-7 w-7 items-center justify-center lg:h-6 lg:w-6" href="{{- "" | absURL -}}" aria-label="Home" title="Home">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-7h6v7"/></svg>
       </a>
@@ -44,6 +40,10 @@
       <a class="flex h-7 w-7 items-center justify-center lg:h-6 lg:w-6" href="{{- "tags/" | absURL -}}" aria-label="Tags" title="Tags">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3.4 13.4a2 2 0 0 1 0-2.8l7.2-7.2A2 2 0 0 1 12 2.8H19a2 2 0 0 1 2 2V12a2 2 0 0 1-.4 1.4Z"/><circle cx="16.5" cy="7.5" r="1"/></svg>
       </a>
+      {{- end -}}
+      <a class="h-7 w-7 text-[0px] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6" style="--url: url(./{{- . -}}.svg)" href="{{- if eq . "rss" -}}{{- "index.xml" | absURL -}}{{- else if eq . "mastodon" -}}{{- index site.Params . -}}{{- else -}}{{- if eq . "threads" -}}https://threads.net/{{- else if eq . "bluesky" -}}https://bsky.app/profile/{{- else -}}https://{{- . -}}.com/{{- end -}}{{- if eq . "linkedin" -}}in/{{- end -}}{{- index site.Params . -}}{{- end -}}" target="_blank" rel="{{- if eq . "rss" -}}alternate{{- else -}}me{{- end -}}">{{- . -}}</a>
+      {{- end -}}
     </nav>
+    {{- end -}}
   </div>
 </header>
