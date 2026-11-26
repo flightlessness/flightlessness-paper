@@ -38,11 +38,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Resolve pinned Hugo modules
-        run: |
-          go mod download github.com/nanxiaobei/hugo-paper
-          echo '=== Generated go.sum for tracking ==='
-          cat go.sum
-          echo '=== End generated go.sum ==='
+        run: go mod download github.com/nanxiaobei/hugo-paper
 
       - name: Build with Hugo
         env:

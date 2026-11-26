@@ -13,7 +13,7 @@
 | 状态 | 内容 |
 | --- | --- |
 | 已完成 · 隐藏文章 | 隐藏文章导航修复：分类词条页保留标题但取消不可达链接；公开文章的前后篇跳过隐藏文章；5 篇隐藏文章通过 Front Matter 的 `sitemap.disable: true` 不再列入 sitemap。涉及 `layouts/_default/{taxonomy,single}.html` 与 5 篇隐藏文章的元数据；RSS、正文和首页/Posts 展示保持不变。提交 [`f6b3584`](https://github.com/flightlessness/flightlessness-paper/commit/f6b35846f64d055d431c318e8f18e3f1b425d9f5)，Actions [#45838661569](https://github.com/flightlessness/flightlessness-paper/actions/runs/45838661569) 构建及部署成功。 |
-| 本轮站点维护 | 固定 Paper 主题至 `f7ed52a1da04`、准备跟踪 Go 模块校验文件，修补本地布局 CSS，改善菜单/深色切换的键盘可用性与社交图标路径，将配置键改为 `locale: en-US`。 |
+| 本轮完成 | 将 Paper 固定至 `f7ed52a1da04` 并提交双校验项 `go.sum`，CI 停止自动升级；为本地分类与页头补充 CSS；改善键盘操作、状态 ARIA 与图标绝对路径；将 `languageCode` 迁移为 `locale: en-US`。变更见 [`206a31c`](https://github.com/flightlessness/flightlessness-paper/commit/206a31c6071dce0e5d17e3e4e7a089cb31c79a10) 及后续修复，生产构建 [#45840480016](https://github.com/flightlessness/flightlessness-paper/actions/runs/45840480016) 已成功。 |
 | 最近完成 | 将项目管理文档精简为两份，并在 README 集中链接。详见 [`f173548`](https://github.com/flightlessness/flightlessness-paper/commit/f17354811cf09790a67cca3f2110d7c7c93594fe)。 |
 | 最近的站点变更 | 调整《忏悔录 2》的发布时间。详见 [`af477a9`](https://github.com/flightlessness/flightlessness-paper/commit/af477a9dbc7e5556b7a4f81be139bda149d5d1e9)。 |
 | 站点功能开发 | 截至本次核对，近期提交中未见新增站点功能，GitHub 上也没有开放的 PR。 |
@@ -26,7 +26,7 @@
 | --- | --- |
 | `README.md` | 说明 Markdown 写作、提交 main 后自动部署，以及 `hugo server` 预览。 |
 | `hugo.yaml` | 定义 Pages baseURL、`en-US`（界面默认 locale）、站名、robots.txt、Git 信息、分类和标签、Posts/About 菜单、Paper 配色与简介、GitHub/RSS 图标、代码高亮和前后篇开关。 |
-| `go.mod` / `go.sum` | 站点依赖声明与校验文件。`go.mod` 固定 Paper 主题提交 `f7ed52a1da04`，CI 只下载固定版本，升级需明确修改版本并检查产物。 |
+| `go.mod` / `go.sum` | 站点依赖声明与校验文件。`go.mod` 固定 Paper 主题提交 `f7ed52a1da04`，`go.sum` 记录模块及其 go.mod 校验码，CI 只下载固定版本，升级需明确修改版本并检查产物。 |
 | `.gitignore` | 忽略构建输出 `public/`、`resources/_gen/` 和 `.hugo_build.lock`，不再忽略 `go.sum`。 |
 | `content/_index.md` | 首页标题和两段欢迎文案。模板没有把文案插入首页主体，生产 HTML 的 Open Graph、Twitter 和 Schema 描述使用了这段文案。 |
 | `content/about.md` | About 的标题和 Markdown 正文，走 Paper 单页模板。 |
@@ -90,13 +90,13 @@ Paper 的 `baseof.html` 设置背景、头像和社交图标 Scratch 值，再�
 
 1. 推送 `main` 或手动运行触发 workflow。并发组为 `pages`，`cancel-in-progress: false`。仓库的 workflow 未设置 pull request 预检触发。
 2. Build job 在 `ubuntu-latest` 上运行 `actions/checkout@v6`、`actions/setup-go@v6`，安装 Go 1.27.3，并从 Hugo release 下载安装 Hugo Extended 0.169.0 的 Linux amd64 包。
-3. `actions/configure-pages@v5` 提供 `base_url`。`hugo mod download` 下载锁定主题，`HUGO_ENVIRONMENT=production hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"` 构建到 `public/`。
+3. `actions/configure-pages@v5` 提供 `base_url`。`go mod download github.com/nanxiaobei/hugo-paper` 下载锁定主题，`HUGO_ENVIRONMENT=production hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"` 构建到 `public/`。
 4. `actions/upload-pages-artifact@v4` 上传 `public/`。Deploy job 依赖 build，使用 `actions/deploy-pages@v5` 在 `github-pages` 环境部署。权限包括 `contents: read`、`pages: write` 和 `id-token: write`。
 5. #62 为 2026-11-21 的 main push。日志确认 build、上传和 deploy 成功，构建报告为 35 个 Pages、2 个分页页面、16 个静态文件和 0 张处理图片，部署目标为 `https://flightlessness.github.io/flightlessness-paper/`。这次审计没有触发远程构建或部署。另用相同版本的 Go 和 Hugo Extended 在独立浅克隆中重跑模块解析和生产构建，得到相同的主题提交和构建计数。产出的指纹 CSS 与线上文件逐字节一致。
 
 ## 后续计划与未实现功能
 
-- **中英双语阅读（规划中）**：网站界面以英文为默认；绝大部分现有 Post 为中文。未来每篇文章发布前由 AI 翻译和润色英文版，经作者确认，再一同发布中文原文和英文译文；文章详情页提供中英切换，并保持相互对应。设计时确定 Hugo multilingual 目录/Front Matter、默认 URL 与英文 URL、`hreflang`、sitemap、RSS、分类/标签翻译、未翻译文章回退、隐藏文章继承规则，确保现有中文文章 URL 不被破坏。当前仅改成英文 `locale`，**尚未提供双语切换或翻译自动化**。
+- **中英双语阅读（规划中）**：网站界面以英文为默认（当前配置 `locale: en-US`），但绝大部分现有 Post 为中文；当前 HTML 文档语言声明与中文正文尚不一致，未来应为各语言页面正确标记 `lang`。未来每篇文章发布前由 AI 翻译和润色英文版，经作者确认，再一同发布中文原文和英文译文；文章详情页提供中英切换，并保持相互对应。设计时确定 Hugo multilingual 目录/Front Matter、默认 URL 与英文 URL、`hreflang`、sitemap、RSS、分类/标签翻译、未翻译文章回退、隐藏文章继承规则，确保现有中文文章 URL 不被破坏。当前仅改成英文 `locale`，**尚未提供双语切换或翻译自动化**。
 - **404 导航体验（可选）**：旧书签或手动访问失效 URL 时，可在通用 404 模板中加入返回上一页及返回 Posts；与隐藏文章当前不可访问的约定区分。
 - **保留待定**：`Hello, Hugo` 测试文章是否长期保留、三个无模板引用的 `static/{home,categories,tags}.svg` 是否删除，由以后单独决定。
 
@@ -117,4 +117,4 @@ Paper 的 `baseof.html` 设置背景、头像和社交图标 Scratch 值，再�
 ## 未覆盖的部分
 
 - GitHub Pages 管理页面、环境保护、私有变量和自定义域设置未读取。实际部署模式和 URL 来自已成功的 Actions 记录。
-- #62 的原始构建产物压缩包已不可获取。公开 URL、HTML、RSS、sitemap 和 CSS 已抽查，并复现了本地生产构建。未逐个检查所有外链、浏览器视觉与移动端交互，也未审阅主题仓库全部上游文件。
+- #62 的原始构建产物压缩包已不可获取。此前审计抽查了公开 URL、HTML、RSS、sitemap 和 CSS。本轮通过 GitHub Actions 完成生产构建，尚未逐个做真实浏览器中的移动端、深色及键盘交互回归，也未遍历全部外链或审阅全部上游模板。

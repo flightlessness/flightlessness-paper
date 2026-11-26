@@ -10,7 +10,7 @@
 ## 项目文档与 Git 工作流
 
 - 当前任务以用户在本次 ChatGPT 对话中的明确要求为准。同一任务有后续补充或更正时，按最新要求执行。GitHub `main` 上的本文件和 `project-docs/` 提供项目背景、默认工作方式及交接参考。文档与当前对话的明确要求冲突时，按当前对话执行。
-- 改动功能、模板、配置或部署时，按需查阅项目地图，并搜索相关实现、调用方和模板覆盖。优先复用已有逻辑。功能、目录或依赖关系变化时，更新项目地图。
+- 改动功能、模板、配置或部署时，按需查阅项目地图，并搜索相关实现、调用方和模板覆盖。优先复用已有逻辑。功能、目录或依赖关系变化时，更新项目地图。用户提出但尚未实施的功能需求，记录到 `project-docs/PROJECT_MAP.md` 的后续计划，注明目标、状态和未定设计；不要把设想写成已实现。
 - 从当前 `main` 开始工作，先检查分支、工作区和远端 HEAD。跨模板、主题或部署的改动优先用短期分支和 PR。按用户授权提交或合并，避免覆盖他人的改动。提交前核对差异范围。
 - 推送 `main` 会触发 Pages 部署，包括仅文档的提交。用户授权直接更新 `main` 时，用正常快进写入。提交后核对实际提交和 Actions 结果。远端在工作期间更新时，先读取新提交并重新核对差异。
 - 仓库是公开的，纳入版本控制的管理文档也可以公开读取。项目文档使用根目录和 `project-docs/`，站点文章、页面和公开素材使用对应的 Hugo 源目录。
@@ -40,6 +40,6 @@
 
 - 以 `.github/workflows/hugo.yaml` 为当前构建工具版本来源。审计时为 Go 1.27.3 与 Hugo Extended 0.169.0。
 - 本地预览用 `hugo server`，预览草稿时用 `hugo server -D`。验证部署行为时使用生产环境参数和 Pages baseURL。
-- 在临时工作副本中复现 CI 的 `hugo mod get -u` 与生产构建。前者会解析或更新 Paper 模块，也可能写入 `go.mod` 和 `go.sum`。记录 `hugo mod graph` 输出中的实际主题版本。
+- CI 使用 `go mod download github.com/nanxiaobei/hugo-paper` 下载 `go.mod` 中固定的 Paper 版本，`go.sum` 纳入版本控制。复现生产构建时不得自动执行 `hugo mod get -u`；主题升级需要明确任务、修改依赖与校验文件，并检查生成产物。记录 `hugo mod graph` 中的实际版本。
 - 生产构建命令为 `HUGO_ENVIRONMENT=production hugo --gc --minify --baseURL "https://flightlessness.github.io/flightlessness-paper/"`。检查 `public/` 中实际生成的 URL、资源、RSS 和 sitemap，确认 Git diff 中只有预期源文件变动。
 - 验证导航或样式时覆盖首页与嵌套页面、桌面与移动端、浅色与深色，并检查键盘操作。通过 CI 或真实页面验证到的行为和仍缺失的验证应在交付中分开写明。
