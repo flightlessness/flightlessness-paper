@@ -1,4 +1,5 @@
 /* Utilities used by local overrides that Paper's precompiled CSS does not include. */
+.grid { display: grid; }
 .gap-4 { gap: 1rem; }
 .gap-8 { gap: 2rem; }
 .justify-between { justify-content: space-between; }

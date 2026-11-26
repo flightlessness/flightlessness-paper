@@ -16,10 +16,6 @@
     });
     onKeyboardActivate(btnMenu);
     onKeyboardActivate(btnDark);
-    btnMenu.addEventListener("click", () => {
-      const isOpen = htmlClass.toggle("open");
-      btnMenu.setAttribute("aria-expanded", String(isOpen));
-    });
     const metaTheme = document.querySelector('meta[name="theme-color"]');
     const lightBg = "{{- $bg_color -}}".replace(/"/g, "");
     const setDark = (isDark) => { metaTheme.setAttribute("content", isDark ? "rgb(0 0 0 / 85%)" : lightBg); htmlClass[isDark ? "add" : "remove"]("dark"); btnDark.setAttribute("aria-pressed", String(isDark)); localStorage.setItem("dark", isDark); };
@@ -51,6 +47,35 @@
       {{- end -}}
     </nav>
   </div>
+  <script>
+    (() => {
+      const navigation = document.getElementById("site-navigation");
+      const desktop = window.matchMedia("(min-width: 64rem)");
+      const syncMenu = () => {
+        if (desktop.matches) htmlClass.remove("open");
+        const isOpen = htmlClass.contains("open");
+        const isHidden = !desktop.matches && !isOpen;
+        if (isHidden && navigation.contains(document.activeElement)) btnMenu.focus();
+        navigation.inert = isHidden;
+        navigation.setAttribute("aria-hidden", String(isHidden));
+        btnMenu.setAttribute("aria-expanded", String(isOpen));
+      };
+      btnMenu.addEventListener("click", () => {
+        htmlClass.toggle("open");
+        syncMenu();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !desktop.matches && htmlClass.contains("open")) {
+          event.preventDefault();
+          htmlClass.remove("open");
+          btnMenu.focus();
+          syncMenu();
+        }
+      });
+      desktop.addEventListener("change", syncMenu);
+      syncMenu();
+    })();
+  </script>
 </header>
 {{- if not .IsHome }}
 <div class="site-back-wrap mx-auto max-w-(--w) px-8">

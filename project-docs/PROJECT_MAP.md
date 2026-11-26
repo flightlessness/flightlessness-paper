@@ -12,6 +12,7 @@
 
 | 状态 | 内容 |
 | --- | --- |
+| 本轮定向修复 · 待线上复测 | `assets/custom.css` 补齐 `.grid`，恢复分类/标签及词条页 <640px 单列、≥640px 双列与 16px 间距；`header.html` 用 `inert`/`aria-hidden` 隔离关闭的移动菜单，按 64rem 断点同步桌面可访问性，Escape 关闭后焦点返回 Menu。Hugo Extended 0.169.0 本地生产构建成功，Chromium/WebKit × 8 宽度 × 浅深色专项 1368 项通过；本地完整主回归 3200 项通过（0 Console/请求异常）；部署后的线上核验另行记录。Paper 未升级。 |
 | 首页分类与日期 | `list.html` 首页右侧显示可点击的非隐藏分类（18px），日期 14px，标题与日期的链接覆盖层限制在左列，与分类间隔 24px；隐藏文章仍无详情链接，Posts 页面不变。提交 `590c847`，[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45893625134)，浏览器待验证。 |
 | 分类与标签总览 | `terms.html` 词条名称无下划线、篇数保留下划线；试验边框已撤销（`2bf3955`）。《月亮的底色》移除后知标签（`3b6441d`），部署成功。 |
 | 维护核验 | 生产产物核验 CSS、隐藏文章、前后篇和内部资源路径；CI 完整 Git 历史及 Node 24 Actions 修复部署成功（`961ea72`）。清理三个无引用静态 SVG；完整浏览器交互待验证。 |
