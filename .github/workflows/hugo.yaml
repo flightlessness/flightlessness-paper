@@ -37,8 +37,12 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
-      - name: Resolve Hugo modules
-        run: hugo mod get -u
+      - name: Resolve pinned Hugo modules
+        run: |
+          hugo mod download
+          echo '=== Generated go.sum for tracking ==='
+          cat go.sum
+          echo '=== End generated go.sum ==='
 
       - name: Build with Hugo
         env:

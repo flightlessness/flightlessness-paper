@@ -3,23 +3,32 @@
 <header class="mx-auto flex h-[4.5rem] max-w-(--w) px-8 whitespace-nowrap lg:justify-center">
   <div class="relative z-50 flex items-center ltr:mr-auto rtl:ml-auto">
     <a class="-translate-y-[1px] text-2xl font-medium" href="{{- "" | absURL -}}">{{ site.Title }}</a>
-    <div class="btn-dark text-[0px] ltr:ml-4 rtl:mr-4 h-6 w-6 shrink-0 cursor-pointer {{ if site.Params.monoDarkIcon }}[background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert{{ else }}[background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)]{{ end }} dark:[background-position:right]" role="button" aria-label="Dark"></div>
+    <div class="btn-dark text-[0px] ltr:ml-4 rtl:mr-4 h-6 w-6 shrink-0 cursor-pointer {{ if site.Params.monoDarkIcon }}[background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert{{ else }}[background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)]{{ end }} dark:[background-position:right]" role="button" tabindex="0" aria-label="Toggle dark mode" aria-pressed="false"></div>
   </div>
-  <div class="btn-menu relative z-50 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden ltr:-mr-8 rtl:-ml-8" role="button" aria-label="Menu"></div>
+  <div class="btn-menu relative z-50 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden ltr:-mr-8 rtl:-ml-8" role="button" tabindex="0" aria-label="Menu" aria-expanded="false" aria-controls="site-navigation"></div>
   <script>
     const htmlClass = document.documentElement.classList;
     setTimeout(() => htmlClass.remove("not-ready"), 10);
     const btnMenu = document.querySelector(".btn-menu");
-    btnMenu.addEventListener("click", () => htmlClass.toggle("open"));
+    const btnDark = document.querySelector(".btn-dark");
+    const onKeyboardActivate = (button) => button.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") { event.preventDefault(); button.click(); }
+    });
+    onKeyboardActivate(btnMenu);
+    onKeyboardActivate(btnDark);
+    btnMenu.addEventListener("click", () => {
+      const isOpen = htmlClass.toggle("open");
+      btnMenu.setAttribute("aria-expanded", String(isOpen));
+    });
     const metaTheme = document.querySelector('meta[name="theme-color"]');
     const lightBg = "{{- $bg_color -}}".replace(/"/g, "");
-    const setDark = (isDark) => { metaTheme.setAttribute("content", isDark ? "rgb(0 0 0 / 85%)" : lightBg); htmlClass[isDark ? "add" : "remove"]("dark"); localStorage.setItem("dark", isDark); };
+    const setDark = (isDark) => { metaTheme.setAttribute("content", isDark ? "rgb(0 0 0 / 85%)" : lightBg); htmlClass[isDark ? "add" : "remove"]("dark"); btnDark.setAttribute("aria-pressed", String(isDark)); localStorage.setItem("dark", isDark); };
     const darkScheme = window.matchMedia("(prefers-color-scheme: dark)");
     if (htmlClass.contains("dark")) setDark(true); else { const darkVal = localStorage.getItem("dark"); setDark(darkVal ? darkVal === "true" : darkScheme.matches); }
     darkScheme.addEventListener("change", (event) => setDark(event.matches));
-    document.querySelector(".btn-dark").addEventListener("click", () => setDark(localStorage.getItem("dark") !== "true"));
+    btnDark.addEventListener("click", () => setDark(localStorage.getItem("dark") !== "true"));
   </script>
-  <div class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full flex-col justify-center bg-(--bg) pb-16 duration-200 select-none lg:static lg:h-auto lg:flex-row lg:bg-transparent! lg:pb-0 lg:transition-none">
+  <div id="site-navigation" class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full flex-col justify-center bg-(--bg) pb-16 duration-200 select-none lg:static lg:h-auto lg:flex-row lg:bg-transparent! lg:pb-0 lg:transition-none">
     {{- with site.Menus.main -}}
     <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-10 rtl:space-x-reverse">
       {{- range . -}}
@@ -41,7 +50,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3.4 13.4a2 2 0 0 1 0-2.8l7.2-7.2A2 2 0 0 1 12 2.8H19a2 2 0 0 1 2 2V12a2 2 0 0 1-.4 1.4Z"/><circle cx="16.5" cy="7.5" r="1"/></svg>
       </a>
       {{- end -}}
-      <a class="h-7 w-7 text-[0px] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6" style="--url: url(./{{- . -}}.svg)" href="{{- if eq . "rss" -}}{{- "index.xml" | absURL -}}{{- else if eq . "mastodon" -}}{{- index site.Params . -}}{{- else -}}{{- if eq . "threads" -}}https://threads.net/{{- else if eq . "bluesky" -}}https://bsky.app/profile/{{- else -}}https://{{- . -}}.com/{{- end -}}{{- if eq . "linkedin" -}}in/{{- end -}}{{- index site.Params . -}}{{- end -}}" target="_blank" rel="{{- if eq . "rss" -}}alternate{{- else -}}me{{- end -}}">{{- . -}}</a>
+      <a class="h-7 w-7 text-[0px] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6" style="--url: url({{- printf `%s.svg` . | absURL -}})" aria-label="{{- . -}}" href="{{- if eq . "rss" -}}{{- "index.xml" | absURL -}}{{- else if eq . "mastodon" -}}{{- index site.Params . -}}{{- else -}}{{- if eq . "threads" -}}https://threads.net/{{- else if eq . "bluesky" -}}https://bsky.app/profile/{{- else -}}https://{{- . -}}.com/{{- end -}}{{- if eq . "linkedin" -}}in/{{- end -}}{{- index site.Params . -}}{{- end -}}" target="_blank" rel="{{- if eq . "rss" -}}alternate{{- else -}}me{{- end -}}">{{- . -}}</a>
       {{- end -}}
     </nav>
     {{- end -}}

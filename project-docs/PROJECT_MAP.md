@@ -12,7 +12,8 @@
 
 | 状态 | 内容 |
 | --- | --- |
-| 当前站点维护 | 隐藏文章导航修复：分类词条页保留标题但取消不可达链接；公开文章的前后篇跳过隐藏文章；5 篇隐藏文章通过 Front Matter 的 `sitemap.disable: true` 不再列入 sitemap。涉及 `layouts/_default/{taxonomy,single}.html` 与 5 篇隐藏文章的元数据；RSS、正文和首页/Posts 展示保持不变。 |
+| 已完成 · 隐藏文章 | 隐藏文章导航修复：分类词条页保留标题但取消不可达链接；公开文章的前后篇跳过隐藏文章；5 篇隐藏文章通过 Front Matter 的 `sitemap.disable: true` 不再列入 sitemap。涉及 `layouts/_default/{taxonomy,single}.html` 与 5 篇隐藏文章的元数据；RSS、正文和首页/Posts 展示保持不变。提交 [`f6b3584`](https://github.com/flightlessness/flightlessness-paper/commit/f6b35846f64d055d431c318e8f18e3f1b425d9f5)，Actions [#45838661569](https://github.com/flightlessness/flightlessness-paper/actions/runs/45838661569) 构建及部署成功。 |
+| 本轮站点维护 | 固定 Paper 主题至 `f7ed52a1da04`、准备跟踪 Go 模块校验文件，修补本地布局 CSS，改善菜单/深色切换的键盘可用性与社交图标路径，将配置键改为 `locale: en-US`。 |
 | 最近完成 | 将项目管理文档精简为两份，并在 README 集中链接。详见 [`f173548`](https://github.com/flightlessness/flightlessness-paper/commit/f17354811cf09790a67cca3f2110d7c7c93594fe)。 |
 | 最近的站点变更 | 调整《忏悔录 2》的发布时间。详见 [`af477a9`](https://github.com/flightlessness/flightlessness-paper/commit/af477a9dbc7e5556b7a4f81be139bda149d5d1e9)。 |
 | 站点功能开发 | 截至本次核对，近期提交中未见新增站点功能，GitHub 上也没有开放的 PR。 |
@@ -24,9 +25,9 @@
 | 路径 | 读取后确认的用途 |
 | --- | --- |
 | `README.md` | 说明 Markdown 写作、提交 main 后自动部署，以及 `hugo server` 预览。 |
-| `hugo.yaml` | 定义 Pages baseURL、`zh-cn`、站名、robots.txt、Git 信息、分类和标签、Posts/About 菜单、Paper 配色与简介、GitHub/RSS 图标、代码高亮和前后篇开关。 |
-| `go.mod` | 站点模块名和 Go 1.27.3。提交中的文件没有 Paper 的 `require` 版本行，主题由 `hugo.yaml` 的 `module.imports` 引入。 |
-| `.gitignore` | 忽略 `public/`、`resources/_gen/`、`.hugo_build.lock` 和根目录 `go.sum`。 |
+| `hugo.yaml` | 定义 Pages baseURL、`en-US`（界面默认 locale）、站名、robots.txt、Git 信息、分类和标签、Posts/About 菜单、Paper 配色与简介、GitHub/RSS 图标、代码高亮和前后篇开关。 |
+| `go.mod` / `go.sum` | 站点依赖声明与校验文件。`go.mod` 固定 Paper 主题提交 `f7ed52a1da04`，CI 只下载固定版本，升级需明确修改版本并检查产物。 |
+| `.gitignore` | 忽略构建输出 `public/`、`resources/_gen/` 和 `.hugo_build.lock`，不再忽略 `go.sum`。 |
 | `content/_index.md` | 首页标题和两段欢迎文案。模板没有把文案插入首页主体，生产 HTML 的 Open Graph、Twitter 和 Schema 描述使用了这段文案。 |
 | `content/about.md` | About 的标题和 Markdown 正文，走 Paper 单页模板。 |
 | `content/posts/` | 12 篇平铺的 Markdown 文件。目录没有自己的 `_index.md`，Hugo 自动生成 Posts 区段页。 |
@@ -34,11 +35,12 @@
 | `layouts/_default/list.html` | 首页与 Posts 列表。筛选首页文章集合，渲染简介、标题、日期和分页，并按「隐藏」分类决定是否输出卡片链接。 |
 | `layouts/_default/terms.html` | 分类、标签总览，按 `.Data.Terms.Alphabetical` 列出词条名称及数量。 |
 | `layouts/_default/taxonomy.html` | 单个分类或标签词条页，按 `.Pages.ByDate.Reverse` 倒序输出文章卡片；隐藏文章只显示标题和日期，不输出失效链接。 |
+| `assets/custom.css` | 补充本地模板需要、而 Paper 预编译样式未包含的 CSS 工具类。 |
 | `layouts/partials/header.html` | 本地页头覆盖层。合并文字菜单、页头图标、移动端菜单和深色切换逻辑。 |
 | `static/{home,categories,tags}.svg` | 三个同名公共静态 SVG。当前页头重画为内联 SVG，这三个文件没有在本地模板或已读文章中被引用。 |
 | `.github/workflows/hugo.yaml` | Hugo 构建与 GitHub Pages 部署的唯一仓库 workflow。 |
 
-Hugo 将 Markdown 和 YAML Front Matter 转换为静态页面。模板使用 Hugo 的 Go 模板语法。Paper 以 Hugo Module 引入，实际部署 #62 解析到 `v0.0.0-20261026221338-f7ed52a1da04`。上游该提交的 `package.json` 标记 6.31.0，README 显示 6.30，所以排查生成结果时优先使用部署中的提交标识。站点仓库无 `package.json`、`themes/`、`assets/`、Git 子模块和自建后端。Paper 用 Bun、PostCSS、Tailwind 4.1.18 和 Typography 插件开发主题 CSS，本站 CI 直接消费 Paper 的预编译 `assets/main.css`。代码高亮脚本来自 Paper 的静态资源。当前站点配置没有启用主题提供的评论服务或数学排版选项。
+Hugo 将 Markdown 和 YAML Front Matter 转换为静态页面。模板使用 Hugo 的 Go 模板语法。Paper 以 Hugo Module 引入，实际部署 #62 解析到 `v0.0.0-20261026221338-f7ed52a1da04`。上游该提交的 `package.json` 标记 6.31.0，README 显示 6.30，所以排查生成结果时优先使用部署中的提交标识。站点仓库无 `package.json`、`themes/`、`assets/`、Git 子模块和自建后端。Paper 用 Bun、PostCSS、Tailwind 4.1.18 和 Typography 插件开发主题 CSS，本站 CI 直接消费 Paper 的预编译 `assets/main.css`。代码高亮脚本来自 Paper 的静态资源。当前站点配置没有启用主题提供的评论服务或数学排版选项。当前界面优先使用英文，中文文章不会因为 locale 变更而自动翻译。
 
 [Paper 实际版本的源码](https://github.com/nanxiaobei/hugo-paper/tree/f7ed52a1da04aa2c536a9c075354191dc10152f8) · [Paper 前端依赖](https://github.com/nanxiaobei/hugo-paper/blob/f7ed52a1da04aa2c536a9c075354191dc10152f8/package.json)
 
@@ -88,19 +90,25 @@ Paper 的 `baseof.html` 设置背景、头像和社交图标 Scratch 值，再�
 
 1. 推送 `main` 或手动运行触发 workflow。并发组为 `pages`，`cancel-in-progress: false`。仓库的 workflow 未设置 pull request 预检触发。
 2. Build job 在 `ubuntu-latest` 上运行 `actions/checkout@v6`、`actions/setup-go@v6`，安装 Go 1.27.3，并从 Hugo release 下载安装 Hugo Extended 0.169.0 的 Linux amd64 包。
-3. `actions/configure-pages@v5` 提供 `base_url`。`hugo mod get -u` 解析或升级主题，`HUGO_ENVIRONMENT=production hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"` 构建到 `public/`。
+3. `actions/configure-pages@v5` 提供 `base_url`。`hugo mod download` 下载锁定主题，`HUGO_ENVIRONMENT=production hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"` 构建到 `public/`。
 4. `actions/upload-pages-artifact@v4` 上传 `public/`。Deploy job 依赖 build，使用 `actions/deploy-pages@v5` 在 `github-pages` 环境部署。权限包括 `contents: read`、`pages: write` 和 `id-token: write`。
 5. #62 为 2026-11-21 的 main push。日志确认 build、上传和 deploy 成功，构建报告为 35 个 Pages、2 个分页页面、16 个静态文件和 0 张处理图片，部署目标为 `https://flightlessness.github.io/flightlessness-paper/`。这次审计没有触发远程构建或部署。另用相同版本的 Go 和 Hugo Extended 在独立浅克隆中重跑模块解析和生产构建，得到相同的主题提交和构建计数。产出的指纹 CSS 与线上文件逐字节一致。
+
+## 后续计划与未实现功能
+
+- **中英双语阅读（规划中）**：网站界面以英文为默认；绝大部分现有 Post 为中文。未来每篇文章发布前由 AI 翻译和润色英文版，经作者确认，再一同发布中文原文和英文译文；文章详情页提供中英切换，并保持相互对应。设计时确定 Hugo multilingual 目录/Front Matter、默认 URL 与英文 URL、`hreflang`、sitemap、RSS、分类/标签翻译、未翻译文章回退、隐藏文章继承规则，确保现有中文文章 URL 不被破坏。当前仅改成英文 `locale`，**尚未提供双语切换或翻译自动化**。
+- **404 导航体验（可选）**：旧书签或手动访问失效 URL 时，可在通用 404 模板中加入返回上一页及返回 Posts；与隐藏文章当前不可访问的约定区分。
+- **保留待定**：`Hello, Hugo` 测试文章是否长期保留、三个无模板引用的 `static/{home,categories,tags}.svg` 是否删除，由以后单独决定。
 
 ## 风险与维护重点
 
 | 优先级 | 发现与可复验的证据 | 处理方向 |
 | --- | --- | --- |
-| 高 | 5 篇「隐藏」文章详情页均实测 404。首页和 Posts 仍显示标题，只省略覆盖链接。分类词条页、Paper 前后篇及 sitemap 仍生成这些 URL。首页、Posts 和「隐藏」分类 RSS 均可读取相关条目和正文摘录。仓库当前公开，Markdown 全文可直接读取。 | 先定清楚隐藏是取消入口、只保留直链，还是停止公开。按目标统一页面集合、链接、RSS 和 sitemap。若涉及保密，还要考虑源码和历史公开范围。 |
-| 中 | `go.mod` 未固定主题版本，`go.sum` 被忽略，CI 每次运行 `hugo mod get -u`。同一个仓库提交重建时可能解析到不同 Paper 版本。项目页头与列表对主题的 Scratch、CSS 类和布局结构存在依赖。 | 固定经验证的 Paper 版本并跟踪校验文件，将主动升级作为独立改动。 |
-| 中 | 线上 CSS 缺少分类卡片使用的 `gap-4`、`sm:grid-cols-2`、`justify-between`、`py-4`，也缺少页头的 `gap-8`。HTML 明确含这些类。Paper 的工具类 CSS 在上游预编译，站点 workflow 不运行对应扫描。 | 为覆盖模板新增的样式使用本地 CSS 并验证最终 CSS，或明确维护包含站点模板的 Tailwind 编译流程。 |
-| 中 | `languageCode` 在 #62 日志被标记为废弃，替代键为 `locale`。线上 HTML 已是 `zh-cn`，首页日期和分页提示仍使用英文。 | 升级配置时核对文档语言和 Hugo 内容语言，以及日期格式与 i18n 结果。 |
-| 中 | 深色与移动菜单控件是 `div role="button"`，只绑定点击事件，源码没有键盘事件、tabindex 或菜单展开状态属性。社交图标由 CSS 自定义属性提供相对 URL。直接访问文章目录下的同名图标 URL 返回 404。浏览器实际解析和发出的请求待确认。 | 优先验证键盘可达性及嵌套页面的图标请求。若实际请求解析出错，可改用含 baseURL 的 URL。 |
+| 已解决 | 5 篇隐藏文章仍无详情页，但分类页移除失效链接、前后篇跳过隐藏、sitemap 排除对应 URL，保留标题与 RSS。 | 维持现有“网站不展示正文、仓库和 RSS 可以公开”的约定。 |
+| 本轮处理 | 主题版本漂移：固定 `go.mod` 的 Paper 版本，停止 CI 自动升级，并跟踪 `go.sum`。 | 如需主题升级，单独修改依赖，验证生成 CSS 和模板差异。 |
+| 本轮处理 | 本地分类/页头模板引用了 Paper 预编译 CSS 中不存在的工具类。 | 在 `assets/custom.css` 补齐五个类并以构建产物验证。 |
+| 本轮处理 | 旧键 `languageCode` 已弃用。网站以英文 UI 为默认，Post 仍以中文为主。 | 采用 `locale: en-US`；正式双语站点另行设计真实语言标记和逐篇翻译。 |
+| 本轮处理 | 菜单/深色按钮缺少键盘事件和状态属性；社交图标依赖相对路径。 | 增加 Enter/Space 键支持、状态 ARIA 属性和站点绝对资源 URL。 |
 | 低 | `static/` 三个项目图标均可在线访问，但页头使用内联版本。Hello, Hugo 为初始测试文章，现继续出现在列表、分类和订阅输出。 | 确认没有外部引用后再考虑静态文件清理。测试文章是否留作历史记录由作者决定。 |
 | 低 | 最新 CI 已出现 Node.js 20 action 运行时兼容提示及 Go 模块缓存路径缺失提示。浅克隆默认深度配合 `enableGitInfo` 可能限制历史元数据的完整性。 | 下次维护 CI 时核验 action 新版本、缓存和 Git 历史深度。当前 #62 的构建与部署成功。 |
 
