@@ -18,3 +18,4 @@ The theme is managed as a Hugo Module.
 
 - [AGENTS.md](AGENTS.md) 记录协作与验证流程。
 - [PROJECT_MAP.md](project-docs/PROJECT_MAP.md) 记录已有功能、文件关系和修改入口。
+- [ROADMAP.md](project-docs/ROADMAP.md) 记录后续计划、风险与维护验证。
