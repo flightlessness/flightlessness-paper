@@ -7,6 +7,8 @@ categories:
   - 隐藏
 build:
   render: link
+sitemap:
+  disable: true
 ---
 
 R和她在一起3年了。

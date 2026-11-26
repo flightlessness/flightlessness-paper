@@ -7,6 +7,8 @@ categories:
   - 诗
 build:
   render: link
+sitemap:
+  disable: true
 ---
 
 新博客的第一篇文章。

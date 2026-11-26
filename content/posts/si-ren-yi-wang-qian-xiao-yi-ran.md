@@ -7,6 +7,8 @@ categories:
   - 诗
 build:
   render: link
+sitemap:
+  disable: true
 ---
 
 一个人孤单的背影，天际纷纷洒落的雨丝，让那场离别多了几分愁绪；回眸时犹豫不决的一瞥，那声终究没有说出的再见，更把本就遗憾的结局蒙上了一层悲怆。

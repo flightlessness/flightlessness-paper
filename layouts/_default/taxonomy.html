@@ -4,10 +4,15 @@
 {{- if $pages -}}
 <div class="grid gap-4 sm:grid-cols-2">
   {{- range $pages.ByDate.Reverse -}}
+  {{- $hidden := in .Params.categories "隐藏" -}}
+  {{- if $hidden -}}
+  <div class="flex items-center justify-between rounded-lg border border-black/10 px-5 py-4 dark:border-white/15">
+  {{- else -}}
   <a class="flex items-center justify-between rounded-lg border border-black/10 px-5 py-4 transition hover:bg-black/5 dark:border-white/15 dark:hover:bg-white/5" href="{{- .Permalink -}}">
+  {{- end -}}
     <span class="text-lg font-medium">{{- .Title -}}</span>
     <span class="text-sm opacity-60">{{- .Date.Format "2006-01-02" -}}</span>
-  </a>
+  {{- if $hidden -}}</div>{{- else -}}</a>{{- end -}}
   {{- end -}}
 </div>
 {{- else -}}

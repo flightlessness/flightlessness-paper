@@ -7,6 +7,8 @@ categories:
   - 隐藏
 build:
   render: link
+sitemap:
+  disable: true
 ---
 
 有好多人说，在某个瞬间，自己终于长大了，因为终于懂什么道理，或者理解了什么，亦或者是经历了什么。

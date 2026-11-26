@@ -12,7 +12,7 @@
 
 | 状态 | 内容 |
 | --- | --- |
-| 本轮完成 | 在项目地图中加入这段进展记录，方便后续对话接手。 |
+| 当前站点维护 | 隐藏文章导航修复：分类词条页保留标题但取消不可达链接；公开文章的前后篇跳过隐藏文章；5 篇隐藏文章通过 Front Matter 的 `sitemap.disable: true` 不再列入 sitemap。涉及 `layouts/_default/{taxonomy,single}.html` 与 5 篇隐藏文章的元数据；RSS、正文和首页/Posts 展示保持不变。 |
 | 最近完成 | 将项目管理文档精简为两份，并在 README 集中链接。详见 [`f173548`](https://github.com/flightlessness/flightlessness-paper/commit/f17354811cf09790a67cca3f2110d7c7c93594fe)。 |
 | 最近的站点变更 | 调整《忏悔录 2》的发布时间。详见 [`af477a9`](https://github.com/flightlessness/flightlessness-paper/commit/af477a9dbc7e5556b7a4f81be139bda149d5d1e9)。 |
 | 站点功能开发 | 截至本次核对，近期提交中未见新增站点功能，GitHub 上也没有开放的 PR。 |
@@ -30,9 +30,10 @@
 | `content/_index.md` | 首页标题和两段欢迎文案。模板没有把文案插入首页主体，生产 HTML 的 Open Graph、Twitter 和 Schema 描述使用了这段文案。 |
 | `content/about.md` | About 的标题和 Markdown 正文，走 Paper 单页模板。 |
 | `content/posts/` | 12 篇平铺的 Markdown 文件。目录没有自己的 `_index.md`，Hugo 自动生成 Posts 区段页。 |
+| `layouts/_default/single.html` | 覆盖 Paper 单篇文章模板，前后篇导航跳过隐藏文章，其余渲染沿用 Paper。 |
 | `layouts/_default/list.html` | 首页与 Posts 列表。筛选首页文章集合，渲染简介、标题、日期和分页，并按「隐藏」分类决定是否输出卡片链接。 |
 | `layouts/_default/terms.html` | 分类、标签总览，按 `.Data.Terms.Alphabetical` 列出词条名称及数量。 |
-| `layouts/_default/taxonomy.html` | 单个分类或标签词条页，按 `.Pages.ByDate.Reverse` 倒序输出文章卡片和链接。 |
+| `layouts/_default/taxonomy.html` | 单个分类或标签词条页，按 `.Pages.ByDate.Reverse` 倒序输出文章卡片；隐藏文章只显示标题和日期，不输出失效链接。 |
 | `layouts/partials/header.html` | 本地页头覆盖层。合并文字菜单、页头图标、移动端菜单和深色切换逻辑。 |
 | `static/{home,categories,tags}.svg` | 三个同名公共静态 SVG。当前页头重画为内联 SVG，这三个文件没有在本地模板或已读文章中被引用。 |
 | `.github/workflows/hugo.yaml` | Hugo 构建与 GitHub Pages 部署的唯一仓库 workflow。 |
@@ -64,7 +65,7 @@ Paper 的 `baseof.html` 设置背景、头像和社交图标 Scratch 值，再�
 ## 文章约定
 
 - 文件名使用小写英文或拼音、连字符和可选数字。12 篇文章均未显式设置 `slug`、`url` 或 `aliases`，已发布文章使用 `/posts/<文件名>/`。重命名时需要处理旧链接。
-- 全部使用 `---` 包住 YAML，包含 `title`、带时区的 `date`、`draft: false` 和 `categories`。时区存在 `+08:00`、`-08:00`、`+00:00` 三种，排版变更时保留原始语义。5 篇使用 `tags`。分类可重叠，线上计数为「诗」9、「随笔」3、「隐藏」5。
+- 全部使用 `---` 包住 YAML，包含 `title`、带时区的 `date`、`draft: false` 和 `categories`。时区存在 `+08:00`、`-08:00`、`+00:00` 三种，排版变更时保留原始语义。5 篇使用 `tags`。隐藏文章另设 `sitemap.disable: true` 以排除无效详情 URL。分类可重叠，线上计数为「诗」9、「随笔」3、「隐藏」5。
 - 诗歌常用行尾两个空格保留换行。有 4 篇在正文后用横线分隔外部链接。读取到的外链指向微博、B 站短链和腾讯纪念碑谷资讯。
 - 本次审计的 12 篇文章均无 Markdown 图片、正文 HTML 图片或图片 shortcode。站点仅三份本地导航 SVG，暂无文章图片管理约定。新增图片可按项目需求选择文章包内的同目录图片或共享 `static/images/`，并验证实际输出 URL。
 
