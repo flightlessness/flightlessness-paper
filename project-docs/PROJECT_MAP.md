@@ -12,6 +12,7 @@
 
 | 状态 | 内容 |
 | --- | --- |
+| 维护核验 | 生产产物核验 CSS、隐藏文章、前后篇和内部资源路径；CI 完整 Git 历史及 Node 24 Actions 修复部署成功（`961ea72`）。清理三个无引用静态 SVG；完整浏览器交互待验证。 |
 | CSS 优先级修复与配色 | `assets/custom.css`：Paper 预编译 CSS 的 ID 级选择器覆盖了本地颜色和留白；通过局部提高选择器优先级修复 Back、桌面提示、手机菜单留白和分类页间距。[修复提交](https://github.com/flightlessness/flightlessness-paper/commit/866369f8f81ed05d7c1d6e1ce5364d341b0c8bf1)，用户已确认原视觉问题修复。随后 Back 浅色灰度改为 #999，深色保持 #aaa，桌面提示留白 10px 16px、字号和延迟不变；[配色提交](https://github.com/flightlessness/flightlessness-paper/commit/51d039544003ca2d4729553208c7b56b10536525)，最新颜色与完整回归待验证。CSS 排查规范已写入 AGENTS.md。 |
 | 文章首尾导航 | `layouts/_default/single.html`：可访问 Post 序列首尾缺少相邻文章时显示 Home，链接至站点首页；继续跳过隐藏文章，保留原有样式。待构建与浏览器验证。 |
 | 导航配色与提示细调 | Back 文字及箭头改为浅灰（浅色 #999、深色 #aaa）；桌面提示字号 0.875rem、内边距 7px 12px，保留 150ms 延迟。待构建及浏览器验证。 |
@@ -44,7 +45,7 @@
 | `layouts/_default/taxonomy.html` | 单个分类或标签词条页，按 `.Pages.ByDate.Reverse` 倒序输出文章卡片；隐藏文章只显示标题和日期，不输出失效链接。 |
 | `assets/custom.css` | 补充本地模板需要、而 Paper 预编译样式未包含的 CSS 工具类。 |
 | `layouts/partials/header.html` | 本地页头覆盖层。合并文字菜单、页头图标、移动端菜单和深色切换逻辑。 |
-| `static/{home,categories,tags}.svg` | 三个同名公共静态 SVG。当前页头重画为内联 SVG，这三个文件没有在本地模板或已读文章中被引用。 |
+| `static/` | 三个旧导航 SVG 经源码与产物引用核验后清理；页头继续使用内联 SVG。 |
 | `.github/workflows/hugo.yaml` | Hugo 构建与 GitHub Pages 部署的唯一仓库 workflow。 |
 
 Hugo 将 Markdown 和 YAML Front Matter 转换为静态页面。模板使用 Hugo 的 Go 模板语法。Paper 以 Hugo Module 引入，实际部署 #62 解析到 `v0.0.0-20261026221338-f7ed52a1da04`。上游该提交的 `package.json` 标记 6.31.0，README 显示 6.30，所以排查生成结果时优先使用部署中的提交标识。站点仓库无 `package.json`、`themes/`、`assets/`、Git 子模块和自建后端。Paper 用 Bun、PostCSS、Tailwind 4.1.18 和 Typography 插件开发主题 CSS，本站 CI 直接消费 Paper 的预编译 `assets/main.css`。代码高亮脚本来自 Paper 的静态资源。当前站点配置没有启用主题提供的评论服务或数学排版选项。当前界面优先使用英文，中文文章不会因为 locale 变更而自动翻译。
@@ -116,13 +117,13 @@ Paper 的 `baseof.html` 设置背景、头像和社交图标 Scratch 值，再�
 | 已解决 | 5 篇隐藏文章仍无详情页，分类页取消失效链接、前后篇跳过隐藏、sitemap 排除对应 URL，保留标题与 RSS。 | 维持网站不展示正文、仓库和 RSS 可以公开的约定。 |
 | 已解决 | Paper 版本固定为 `f7ed52a1da04`，CI 停止自动升级，`go.sum` 已跟踪。 | 主题升级单独处理并验证生成 CSS 和模板差异。 |
 | 已解决 | `languageCode` 已迁移为 `locale: en-US`，生产构建成功。 | 英文 UI 与中文文章现状保持；正式双语另行设计。 |
-| 待验证 | 本地分类和页头缺失的五个 CSS 工具类已补齐，生产构建成功，但尚未逐项核验生成 CSS 与视觉效果。 | 检查分类布局及实际 CSS 输出。 |
-| 待验证 | 页头已实现六图标导航、手机三列两行英文菜单、桌面 150ms 悬停提示、Back 对齐与 1.25rem 常规字重；深色切换、Enter/Space、ARIA 和社交资源绝对 URL 已实现。最新 [Actions #45847559148](https://github.com/flightlessness/flightlessness-paper/actions/runs/45847559148) 构建及部署成功。 | 优先在真实浏览器核验桌面与手机布局、菜单水平居中、Back 对齐和返回逻辑、提示延迟、深色模式、键盘交互及嵌套页面资源请求；同时抽查隐藏文章联动输出。 |
-| 中 | CI 曾出现 Node.js 20 action 兼容提示及 Go 模块缓存路径缺失提示；后续成功日志未见缓存警告，但未系统复核。默认浅克隆可能影响 `enableGitInfo` 历史元数据。 | 核验 action 版本、缓存和 Git 历史深度；不因旧警告直接认定当前构建失败。 |
+| 待视觉验证 | 五个工具类均存在于生产压缩 CSS，指纹和 SRI 校验一致；分类/标签实际使用四个，`gap-8` 暂无调用。`py-4` 优先级已修复。 | 实际浏览器核验分类单/双列及间距。 |
+| 待完整视觉验证 | 用户已确认 Back/提示 CSS 冲突修复；生产产物规则及内部资源路径核验通过，隐藏文章及公开文章前后篇、首尾 Home 均符合约定。 | 浏览器计算样式、返回、深色、键盘、网络请求尚待实测；本轮 Chromium 导航受环境限制。 |
+| 已解决 | CI 修复 `961ea72`：checkout 完整历史、configure-pages v6、upload-pages-artifact v5；[Actions #45850622617](https://github.com/flightlessness/flightlessness-paper/actions/runs/45850622617) 成功，日志确认 fetch-depth 0、Go 缓存命中、Node.js 20 警告消失。 | 固定 Hugo/Go/Paper 版本，按需升级 Actions。 |
 | 中 | 正式双语文章、逐篇 AI 翻译及语言切换尚未实现。 | 保留现有 URL，另行设计语言标记、翻译关联、切换、RSS、sitemap 和隐藏规则。 |
-| 低 | 通用 404 返回导航尚未单独完善。 | 核验 404 是否继承 Back，并按需提供返回上一页或 Posts 的入口。 |
-| 低 | `static/` 三个项目图标仍保留；Hello, Hugo 测试文章仍在公开输出。 | 确认引用后再清理图标；测试文章由作者决定是否保留。 |
+| 低 | 生产 404.html 已确认含 Back；尚未实测返回行为。 | 按需核验 404 交互，不另改模板。 |
+| 已清理 / 待作者决定 | 全部本地模板、文章及生产 HTML 未发现三个旧导航 SVG 引用；已清理 `static/{home,categories,tags}.svg`。Hello, Hugo 属隐藏文章，保留标题及 RSS。 | 测试文章是否保留由作者决定。 |
 | 低 | GitHub Pages 管理设置、环境保护、私有变量和自定义域尚未核验；实际部署模式和 URL 已由成功 Actions 记录确认。 | 下次维护部署时按需检查；无新增域名或权限需求时不主动改变设置。 |
-| 低 | 尚未遍历全部外链或审阅全部上游模板。 | 按需检查外链；仅在相关功能改动或主题升级时审阅受影响的上游模板。 |
+| 低 | 已扫描全部 12 篇文章，正文外链共三个不同 URL（微博、B 站、腾讯游戏旧页），网络工具均无法读取，不能判定失效。 | 保留原链接；按需人工核验；主题升级时审阅受影响模板。 |
 
 [隐藏分类](https://flightlessness.github.io/flightlessness-paper/categories/%E9%9A%90%E8%97%8F/) · [站点订阅](https://flightlessness.github.io/flightlessness-paper/index.xml) · [站点地图](https://flightlessness.github.io/flightlessness-paper/sitemap.xml) · [Hugo 构建选项](https://gohugo.io/content-management/build-options/)
