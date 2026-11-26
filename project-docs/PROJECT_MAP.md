@@ -6,27 +6,25 @@
 
 ## 项目管理文档
 
-根目录的 [AGENTS.md](../AGENTS.md) 记录 AI 操作规范和 Git 流程。本文件记录已有功能、文件关系及实现入口。历史审计快照保留作参考；当前实现更新至 2026-11-27 的 `590c847`，后续计划与维护见 [ROADMAP.md](ROADMAP.md)。动手前对照 GitHub `main` 最新源码。
+根目录的 [AGENTS.md](../AGENTS.md) 记录 AI 操作规范和 Git 流程。本文件记录已有功能、文件关系及实现入口。历史审计快照保留作参考；当前实现更新至 2026-11-27 的 `378f16e`，后续计划与维护见 [ROADMAP.md](ROADMAP.md)。动手前对照 GitHub `main` 最新源码。
 
 ## 当前改动与最近新增
 
 | 状态 | 内容 |
 | --- | --- |
-| 本轮定向修复 · 待线上复测 | `assets/custom.css` 补齐 `.grid`，恢复分类/标签及词条页 <640px 单列、≥640px 双列与 16px 间距；`header.html` 用 `inert`/`aria-hidden` 隔离关闭的移动菜单，按 64rem 断点同步桌面可访问性，Escape 关闭后焦点返回 Menu。Hugo Extended 0.169.0 本地生产构建成功，Chromium/WebKit × 8 宽度 × 浅深色专项 1368 项通过；本地完整主回归 3200 项通过（0 Console/请求异常）；部署后的线上核验另行记录。Paper 未升级。 |
-| 首页分类与日期 | `list.html` 首页右侧显示可点击的非隐藏分类（18px），日期 14px，标题与日期的链接覆盖层限制在左列，与分类间隔 24px；隐藏文章仍无详情链接，Posts 页面不变。提交 `590c847`，[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45893625134)，浏览器待验证。 |
-| 分类与标签总览 | `terms.html` 词条名称无下划线、篇数保留下划线；试验边框已撤销（`2bf3955`）。《月亮的底色》移除后知标签（`3b6441d`），部署成功。 |
-| 维护核验 | 生产产物核验 CSS、隐藏文章、前后篇和内部资源路径；CI 完整 Git 历史及 Node 24 Actions 修复部署成功（`961ea72`）。清理三个无引用静态 SVG；完整浏览器交互待验证。 |
-| CSS 优先级修复与配色 | `assets/custom.css`：Paper 预编译 CSS 的 ID 级选择器覆盖了本地颜色和留白；通过局部提高选择器优先级修复 Back、桌面提示、手机菜单留白和分类页间距。[修复提交](https://github.com/flightlessness/flightlessness-paper/commit/866369f8f81ed05d7c1d6e1ce5364d341b0c8bf1)，用户已确认原视觉问题修复。随后 Back 浅色灰度改为 #999，深色保持 #aaa，桌面提示留白 10px 16px、字号和延迟不变；[配色提交](https://github.com/flightlessness/flightlessness-paper/commit/51d039544003ca2d4729553208c7b56b10536525)，最新颜色与完整回归待验证。CSS 排查规范已写入 AGENTS.md。 |
-| 文章首尾导航 | `layouts/_default/single.html`：可访问 Post 序列首尾缺少相邻文章时显示 Home，链接至站点首页；继续跳过隐藏文章，保留原有样式。构建部署成功，浏览器待验证。 |
-| 导航配色与提示细调 | Back 文字及箭头改为浅灰（浅色 #999、深色 #aaa）；桌面提示字号 0.875rem、内边距 10px 16px，保留 150ms 延迟。构建部署成功，浏览器待验证。 |
-| 导航细调 | Back 字号 1.25rem、常规字重；桌面自定义英文提示延迟 150ms，支持键盘焦点；手机六宫格容器与文字居中。其他布局及跳转不变，[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45847559148)，浏览器验证待完成。 |
-| 手机导航与 Back 对齐 | 手机端三列两行图标及英文名称；桌面纯图标与 title 提示；Back 复用页头布局类，字号 1rem、字重 600、箭头 20px。涉及 `layouts/partials/header.html`、`assets/custom.css`；[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45845768274)，浏览器验证待完成。 |
-| 本轮导航精简 | 方案 A：移除 Posts 菜单入口但保留页面；About 改为圆圈 i，顺序 Home、Categories、Tags、About、GitHub、RSS。非首页页头下方增加 Back，站内来源优先，直接访问回首页。手机端沿用 Paper 汉堡菜单，后续改为固定六宫格。涉及 `hugo.yaml`、`layouts/partials/header.html`、`assets/custom.css`。[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45844304563)，浏览器回归待验证。 |
+| 已完成 · 网格与菜单定向修复 | [378f16e](https://github.com/flightlessness/flightlessness-paper/commit/378f16eaf3599886eefde7e6f6a9617744506684)：补齐 `.grid`，恢复 Categories、Tags 和词条页 <640px 单列、≥640px 双列及 16px 行列间距；关闭的移动导航由 `inert`/`aria-hidden` 隔离，按 64rem 断点同步桌面可访问性；Escape 关闭并将焦点返回 Menu，`aria-expanded` 同步。保留无边框、字号、下划线与对齐；Paper 未升级。[部署 45898987742](https://github.com/flightlessness/flightlessness-paper/actions/runs/45898987742)构建及部署成功（2026-11-27 05:34:27，UTC+8）。 |
+| 已核验 · 完整浏览器回归与 CSS | 2026-11-27 05:38（UTC+8）完成 Chromium 159.0.8154.6 / WebKit 27.2 × 375/390/639/640/768/1023/1024/1440px × 浅深色。Hugo Extended 0.169.0 本地构建成功，本地 4568/4568、线上 6184/6184 断言通过；覆盖计算样式/优先级、资源与 CSS SRI、主题刷新保留、导航/提示/键盘/Back、首页命中区域、分页、公开文章前后篇与首尾 Home、隐藏列表/404/RSS/sitemap、溢出/重叠。0 Console/请求异常；51 个线上发布文件与本地生产构建逐字节一致。构建成功与浏览器通过分别核验。 |
+| 首页分类与日期 · 已验证 | 首页标题 24px、日期 14px、分类 18px；标题/日期覆盖层限定左列，与分类相隔 24px，分类实际点击不被覆盖；隐藏文章无详情链接，Posts 保持原行为。最初实现 `590c847`，已纳入本轮完整矩阵验证。 |
+| 分类与标签 · 已验证 | 总览词条名称无下划线、篇数保留下划线；无边框、名称 18px、篇数/词条日期保持原实际 16px、内边距 16px 20px；网格及真实间距已验证。`py-4`、Back 和提示的局部高优先级覆盖实际生效；`gap-8` 仍无调用，未作无关清理。 |
+| 导航及文章 · 已验证 | 顺序 Home、Categories、Tags、About、GitHub、RSS；手机六宫格居中、桌面图标与键盘提示通过。Back 20px/400、浅色 #999/深色 #aaa；桌面提示 14px、10px 16px、延迟 150ms。全部公开文章的前后篇跳过隐藏文章，序列首尾 Home 返回首页；404 页头/Back 已复核。 |
+| 继续观察 / 未覆盖 | WebKit 390px 深色首页曾偶发点击超时；本轮主矩阵及同组合 20 次独立点击未重现，未针对其修改代码、不标记已修复。iOS 真机 Safari、触摸/动态工具栏及无历史截图基线的逐像素验收仍未覆盖，见 ROADMAP。 |
 | 导航栏调整 | [`90cdaaa`](https://github.com/flightlessness/flightlessness-paper/commit/90cdaaad781967e2775109093ce1f8b49475c5dc)：自定义图标独立于 RSS，GitHub 移至 Tags 与 RSS 之间，深色反色仅用于原生背景图标。 |
 | 已完成 · 隐藏文章 | 隐藏文章导航修复：分类词条页保留标题但取消不可达链接；公开文章的前后篇跳过隐藏文章；5 篇隐藏文章通过 Front Matter 的 `sitemap.disable: true` 不再列入 sitemap。涉及 `layouts/_default/{taxonomy,single}.html` 与 5 篇隐藏文章的元数据；RSS、正文和首页/Posts 展示保持不变。提交 [`f6b3584`](https://github.com/flightlessness/flightlessness-paper/commit/f6b35846f64d055d431c318e8f18e3f1b425d9f5)，Actions [#45838661569](https://github.com/flightlessness/flightlessness-paper/actions/runs/45838661569) 构建及部署成功。 |
 | 本轮完成 | 将 Paper 固定至 `f7ed52a1da04` 并提交双校验项 `go.sum`，CI 停止自动升级；为本地分类与页头补充 CSS；改善键盘操作、状态 ARIA 与图标绝对路径；将 `languageCode` 迁移为 `locale: en-US`。变更见 [`206a31c`](https://github.com/flightlessness/flightlessness-paper/commit/206a31c6071dce0e5d17e3e4e7a089cb31c79a10) 及后续修复，生产构建 [#45840480016](https://github.com/flightlessness/flightlessness-paper/actions/runs/45840480016) 已成功。 |
 | 最近完成 | 曾将项目管理文档精简为两份，并在 README 集中链接。详见 [`f173548`](https://github.com/flightlessness/flightlessness-paper/commit/f17354811cf09790a67cca3f2110d7c7c93594fe)。 |
 | 最近的站点变更 | 调整《忏悔录 2》的发布时间。详见 [`af477a9`](https://github.com/flightlessness/flightlessness-paper/commit/af477a9dbc7e5556b7a4f81be139bda149d5d1e9)。 |
+
+测试证据保存在本轮仓库外的证据包 `flightlessness-fix-2026-11-27`：`local/summary.json`、`online/summary.json`、`online/artifacts-fix.json`、`online/fix-results/` 截图及可重跑脚本；未将测试依赖或脚本纳入博客仓库。
 
 后续开始需要跨对话接手的工作时，简要记录正在改什么和涉及的文件。功能合并后，将对应条目改为已完成，补上一句用户能看到的变化和提交或 PR 链接。这里保留当前工作和最近几项变化，较早的记录从 Git 历史查阅。
 
@@ -68,7 +66,7 @@ Hugo 将 Markdown 和 YAML Front Matter 转换为静态页面。模板使用 Hug
 
 Paper 的 `baseof.html` 设置背景、头像和社交图标 Scratch 值，再依次调用 `head.html`、项目覆盖的 `header.html`、当前页面的 `main` block 及主题 `footer.html`。Paper 的 `head.html` 把 `assets/main.css` 和 `assets/custom.css` 合并、压缩、计算指纹并输出带完整性校验的样式链接。
 
-页头不再输出文字菜单；Posts 页面保留，About 使用内联信息图标。Home/Categories/Tags 由页头通过 `absURL` 独立输出，不再依赖 RSS 分支；内联 SVG 使用 `currentColor`，仅原生社交背景图标使用 `dark:invert`。当前顺序为 Home、Categories、Tags、About、GitHub、RSS。Paper 用 `isset` 判定社交配置键是否存在。页头脚本控制移动菜单、系统配色和保存在 `localStorage` 的深色状态。
+页头不再输出文字菜单；Posts 页面保留，About 使用内联信息图标。Home/Categories/Tags 由页头通过 `absURL` 独立输出，不再依赖 RSS 分支；内联 SVG 使用 `currentColor`，仅原生社交背景图标使用 `dark:invert`。当前顺序为 Home、Categories、Tags、About、GitHub、RSS。Paper 用 `isset` 判定社交配置键是否存在。页头脚本控制移动菜单、系统配色和保存在 `localStorage` 的深色状态。菜单状态统一同步 `inert`、`aria-hidden`、`aria-expanded`；关闭移动菜单时链接不可聚焦，桌面导航始终可访问；Escape 返回菜单按钮，断点切换清理移动 open 状态。
 
 当前 taxonomy 文件名沿用旧布局的语义。Hugo 0.169.0 的线上输出已确认其分工。若将来迁移到新版布局目录，应明确使用 `layouts/taxonomy.html` 做总览，`layouts/term.html` 做单个词条，并回归检查两级页面。
 
