@@ -12,8 +12,8 @@
 
 | 状态 | 内容 |
 | --- | --- |
-| 导航细调 | Back 字号 1.25rem、常规字重；桌面自定义英文提示延迟 150ms，支持键盘焦点；手机六宫格容器与文字居中。其他布局及跳转不变，待构建与浏览器验证。 |
-| 手机导航与 Back 对齐 | 手机端三列两行图标及英文名称；桌面纯图标与 title 提示；Back 复用页头布局类，字号 1rem、字重 600、箭头 20px。涉及 `layouts/partials/header.html`、`assets/custom.css`；待构建和浏览器验证。 |
+| 导航细调 | Back 字号 1.25rem、常规字重；桌面自定义英文提示延迟 150ms，支持键盘焦点；手机六宫格容器与文字居中。其他布局及跳转不变，[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45847559148)，浏览器验证待完成。 |
+| 手机导航与 Back 对齐 | 手机端三列两行图标及英文名称；桌面纯图标与 title 提示；Back 复用页头布局类，字号 1rem、字重 600、箭头 20px。涉及 `layouts/partials/header.html`、`assets/custom.css`；[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45845768274)，浏览器验证待完成。 |
 | 本轮导航精简 | 方案 A：移除 Posts 菜单入口但保留页面；About 改为圆圈 i，顺序 Home、Categories、Tags、About、GitHub、RSS。非首页页头下方增加 Back，站内来源优先，直接访问回首页。手机端沿用 Paper 汉堡菜单，后续改为固定六宫格。涉及 `hugo.yaml`、`layouts/partials/header.html`、`assets/custom.css`。[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45844304563)，浏览器回归待验证。 |
 | 导航栏调整 | [`90cdaaa`](https://github.com/flightlessness/flightlessness-paper/commit/90cdaaad781967e2775109093ce1f8b49475c5dc)：自定义图标独立于 RSS，GitHub 移至 Tags 与 RSS 之间，深色反色仅用于原生背景图标。 |
 | 已完成 · 隐藏文章 | 隐藏文章导航修复：分类词条页保留标题但取消不可达链接；公开文章的前后篇跳过隐藏文章；5 篇隐藏文章通过 Front Matter 的 `sitemap.disable: true` 不再列入 sitemap。涉及 `layouts/_default/{taxonomy,single}.html` 与 5 篇隐藏文章的元数据；RSS、正文和首页/Posts 展示保持不变。提交 [`f6b3584`](https://github.com/flightlessness/flightlessness-paper/commit/f6b35846f64d055d431c318e8f18e3f1b425d9f5)，Actions [#45838661569](https://github.com/flightlessness/flightlessness-paper/actions/runs/45838661569) 构建及部署成功。 |
@@ -106,19 +106,20 @@ Paper 的 `baseof.html` 设置背景、头像和社交图标 Scratch 值，再�
 
 ## 风险与维护重点
 
+状态说明：已解决表示对应修复已实施并有构建或其他验证依据；待验证表示实现已提交，但仍需检查实际输出或交互；高、中、低表示尚未完成事项的维护优先级。
+
 | 优先级 | 发现与可复验的证据 | 处理方向 |
 | --- | --- | --- |
-| 已解决 | 5 篇隐藏文章仍无详情页，但分类页移除失效链接、前后篇跳过隐藏、sitemap 排除对应 URL，保留标题与 RSS。 | 维持现有“网站不展示正文、仓库和 RSS 可以公开”的约定。 |
-| 本轮处理 | 主题版本漂移：固定 `go.mod` 的 Paper 版本，停止 CI 自动升级，并跟踪 `go.sum`。 | 如需主题升级，单独修改依赖，验证生成 CSS 和模板差异。 |
-| 本轮处理 | 本地分类/页头模板引用了 Paper 预编译 CSS 中不存在的工具类。 | 在 `assets/custom.css` 补齐五个类并以构建产物验证。 |
-| 本轮处理 | 旧键 `languageCode` 已弃用。网站以英文 UI 为默认，Post 仍以中文为主。 | 采用 `locale: en-US`；正式双语站点另行设计真实语言标记和逐篇翻译。 |
-| 本轮处理 | 菜单/深色按钮缺少键盘事件和状态属性；社交图标依赖相对路径。 | 增加 Enter/Space 键支持、状态 ARIA 属性和站点绝对资源 URL。 |
-| 低 | `static/` 三个项目图标均可在线访问，但页头使用内联版本。Hello, Hugo 为初始测试文章，现继续出现在列表、分类和订阅输出。 | 确认没有外部引用后再考虑静态文件清理。测试文章是否留作历史记录由作者决定。 |
-| 低 | 最新 CI 已出现 Node.js 20 action 运行时兼容提示及 Go 模块缓存路径缺失提示。浅克隆默认深度配合 `enableGitInfo` 可能限制历史元数据的完整性。 | 下次维护 CI 时核验 action 新版本、缓存和 Git 历史深度。当前 #62 的构建与部署成功。 |
+| 已解决 | 5 篇隐藏文章仍无详情页，分类页取消失效链接、前后篇跳过隐藏、sitemap 排除对应 URL，保留标题与 RSS。 | 维持网站不展示正文、仓库和 RSS 可以公开的约定。 |
+| 已解决 | Paper 版本固定为 `f7ed52a1da04`，CI 停止自动升级，`go.sum` 已跟踪。 | 主题升级单独处理并验证生成 CSS 和模板差异。 |
+| 已解决 | `languageCode` 已迁移为 `locale: en-US`，生产构建成功。 | 英文 UI 与中文文章现状保持；正式双语另行设计。 |
+| 待验证 | 本地分类和页头缺失的五个 CSS 工具类已补齐，生产构建成功，但尚未逐项核验生成 CSS 与视觉效果。 | 检查分类布局及实际 CSS 输出。 |
+| 待验证 | 页头已实现六图标导航、手机三列两行英文菜单、桌面 150ms 悬停提示、Back 对齐与 1.25rem 常规字重；深色切换、Enter/Space、ARIA 和社交资源绝对 URL 已实现。最新 [Actions #45847559148](https://github.com/flightlessness/flightlessness-paper/actions/runs/45847559148) 构建及部署成功。 | 优先在真实浏览器核验桌面与手机布局、菜单水平居中、Back 对齐和返回逻辑、提示延迟、深色模式、键盘交互及嵌套页面资源请求；同时抽查隐藏文章联动输出。 |
+| 中 | CI 曾出现 Node.js 20 action 兼容提示及 Go 模块缓存路径缺失提示；后续成功日志未见缓存警告，但未系统复核。默认浅克隆可能影响 `enableGitInfo` 历史元数据。 | 核验 action 版本、缓存和 Git 历史深度；不因旧警告直接认定当前构建失败。 |
+| 中 | 正式双语文章、逐篇 AI 翻译及语言切换尚未实现。 | 保留现有 URL，另行设计语言标记、翻译关联、切换、RSS、sitemap 和隐藏规则。 |
+| 低 | 通用 404 返回导航尚未单独完善。 | 核验 404 是否继承 Back，并按需提供返回上一页或 Posts 的入口。 |
+| 低 | `static/` 三个项目图标仍保留；Hello, Hugo 测试文章仍在公开输出。 | 确认引用后再清理图标；测试文章由作者决定是否保留。 |
+| 低 | GitHub Pages 管理设置、环境保护、私有变量和自定义域尚未核验；实际部署模式和 URL 已由成功 Actions 记录确认。 | 下次维护部署时按需检查；无新增域名或权限需求时不主动改变设置。 |
+| 低 | 尚未遍历全部外链或审阅全部上游模板。 | 按需检查外链；仅在相关功能改动或主题升级时审阅受影响的上游模板。 |
 
 [隐藏分类](https://flightlessness.github.io/flightlessness-paper/categories/%E9%9A%90%E8%97%8F/) · [站点订阅](https://flightlessness.github.io/flightlessness-paper/index.xml) · [站点地图](https://flightlessness.github.io/flightlessness-paper/sitemap.xml) · [Hugo 构建选项](https://gohugo.io/content-management/build-options/)
-
-## 未覆盖的部分
-
-- GitHub Pages 管理页面、环境保护、私有变量和自定义域设置未读取。实际部署模式和 URL 来自已成功的 Actions 记录。
-- #62 的原始构建产物压缩包已不可获取。此前审计抽查了公开 URL、HTML、RSS、sitemap 和 CSS。本轮通过 GitHub Actions 完成生产构建，尚未逐个做真实浏览器中的移动端、深色及键盘交互回归，也未遍历全部外链或审阅全部上游模板。
