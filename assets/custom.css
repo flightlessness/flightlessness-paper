@@ -12,7 +12,7 @@
  * Keep desktop/mobile and dark/hover variants at matching specificity. */
 /* Back uses the same width and horizontal padding utilities as the header. */
 .site-back-wrap:not(#\#):not(#\#) { padding-top: 0.75rem; }
-.site-back:not(#\#):not(#\#) { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.5rem; font-size: 1.25rem; font-weight: 400; color: #b3b3b3; opacity: 1; }
+.site-back:not(#\#):not(#\#) { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.5rem; font-size: 1.25rem; font-weight: 400; color: #999; opacity: 1; }
 .dark .site-back:not(#\#):not(#\#) { color: #aaa; }
 .site-back:hover, .site-back:focus-visible { opacity: 1; }
 /* Mobile: centered three-column icon menu. Desktop: icon-only row. */
