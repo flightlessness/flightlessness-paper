@@ -36,24 +36,28 @@ $paginator.Pages -}}<!---->
   {{- end -}}
   {{- if $.IsHome -}}
   {{- $categories := where (.GetTerms "categories") "Title" "ne" "隐藏" -}}
-  <div class="flex items-center justify-between gap-4">
-    <h2 class="my-0!" style="min-width: 0; overflow-wrap: anywhere">{{- .Title -}}</h2>
+  <div style="display: grid; position: relative; grid-template-columns: minmax(0, 1fr) auto; column-gap: 1.5rem; align-items: center">
+    <h2 class="my-0!" style="grid-area: 1 / 1; min-width: 0; overflow-wrap: anywhere">{{- .Title -}}</h2>
     {{- with $categories -}}
-    <span class="not-prose shrink-0 opacity-60" style="font-size: 1rem; text-align: right; position: relative; z-index: 1">
+    <span class="not-prose opacity-60" style="grid-area: 1 / 2; font-size: 1.125rem; text-align: right">
       {{- range $index, $category := . -}}
         {{- if $index -}}、{{- end -}}
         <a class="no-underline" href="{{- $category.Permalink -}}">{{- $category.Title -}}</a>
       {{- end -}}
     </span>
     {{- end -}}
+    <time class="antialiased opacity-60" style="grid-area: 2 / 1; font-size: 0.875rem; line-height: 1.25rem">{{- .Date | time.Format ":date_medium" -}}</time>
+    {{- if not (in .Params.categories "隐藏") }}
+    <a class="absolute inset-0 text-[0px]" style="grid-area: 1 / 1 / 3 / 2" href="{{- .Permalink -}}">{{- .Title -}}</a>
+    {{- end }}
   </div>
   {{- else -}}
   <h2 class="my-0!">{{- .Title -}}</h2>
-  {{- end -}}
   <time class="text-xs antialiased opacity-60">{{- .Date | time.Format ":date_medium" -}}</time>
   {{- if not (in .Params.categories "隐藏") }}
   <a class="absolute inset-0 text-[0px]" href="{{- .Permalink -}}">{{- .Title -}}</a>
   {{- end }}
+  {{- end -}}
 </section>
 {{- end -}}
 <!-- Main Nav -->
