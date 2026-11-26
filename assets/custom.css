@@ -35,3 +35,7 @@
   #site-navigation > .site-icon-nav:not(#\#):not(#\#) { margin-left: auto; margin-right: auto; }
   .site-nav-link { text-align: center; }
 }
+
+/* Restore missing border utilities on local taxonomy cards. */
+.border:not(#\#):not(#\#) { border-width: 1px; border-style: solid; }
+.dark .dark\:border-white\/15:not(#\#):not(#\#):not(#\#):not(#\#) { border-color: rgb(255 255 255 / 15%); }
