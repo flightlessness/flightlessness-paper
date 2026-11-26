@@ -12,7 +12,7 @@
 
 | 状态 | 内容 |
 | --- | --- |
-| 导航视觉微调 | Back 浅色模式灰色调整至 #b3b3b3，深色保持 #aaa；桌面提示内边距增至 10px 16px，字号和延迟不变。待构建及浏览器验证。 |
+| CSS 优先级修复与配色 | `assets/custom.css`：Paper 预编译 CSS 的 ID 级选择器覆盖了本地颜色和留白；通过局部提高选择器优先级修复 Back、桌面提示、手机菜单留白和分类页间距。[修复提交](https://github.com/flightlessness/flightlessness-paper/commit/866369f8f81ed05d7c1d6e1ce5364d341b0c8bf1)，用户已确认原视觉问题修复。随后 Back 浅色灰度改为 #999，深色保持 #aaa，桌面提示留白 10px 16px、字号和延迟不变；[配色提交](https://github.com/flightlessness/flightlessness-paper/commit/51d039544003ca2d4729553208c7b56b10536525)，最新颜色与完整回归待验证。CSS 排查规范已写入 AGENTS.md。 |
 | 文章首尾导航 | `layouts/_default/single.html`：可访问 Post 序列首尾缺少相邻文章时显示 Home，链接至站点首页；继续跳过隐藏文章，保留原有样式。待构建与浏览器验证。 |
 | 导航配色与提示细调 | Back 文字及箭头改为浅灰（浅色 #999、深色 #aaa）；桌面提示字号 0.875rem、内边距 7px 12px，保留 150ms 延迟。待构建及浏览器验证。 |
 | 导航细调 | Back 字号 1.25rem、常规字重；桌面自定义英文提示延迟 150ms，支持键盘焦点；手机六宫格容器与文字居中。其他布局及跳转不变，[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45847559148)，浏览器验证待完成。 |
