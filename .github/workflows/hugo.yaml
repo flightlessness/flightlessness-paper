@@ -39,7 +39,7 @@ jobs:
 
       - name: Resolve pinned Hugo modules
         run: |
-          hugo mod download
+          go mod download
           echo '=== Generated go.sum for tracking ==='
           cat go.sum
           echo '=== End generated go.sum ==='
