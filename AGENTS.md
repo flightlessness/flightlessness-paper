@@ -43,3 +43,10 @@
 - CI 使用 `go mod download github.com/nanxiaobei/hugo-paper` 下载 `go.mod` 中固定的 Paper 版本，`go.sum` 纳入版本控制。复现生产构建时不得自动执行 `hugo mod get -u`；主题升级需要明确任务、修改依赖与校验文件，并检查生成产物。记录 `hugo mod graph` 中的实际版本。
 - 生产构建命令为 `HUGO_ENVIRONMENT=production hugo --gc --minify --baseURL "https://flightlessness.github.io/flightlessness-paper/"`。检查 `public/` 中实际生成的 URL、资源、RSS 和 sitemap，确认 Git diff 中只有预期源文件变动。
 - 验证导航或样式时覆盖首页与嵌套页面、桌面与移动端、浅色与深色，并检查键盘操作。通过 CI 或真实页面验证到的行为和仍缺失的验证应在交付中分开写明。
+
+## CSS 冲突排查与视觉验证
+
+- 修改样式前，核对目标元素实际 HTML、锁定 Paper 版本的预编译 `assets/main.css` 与本地 `assets/custom.css`，检查选择器优先级、层叠顺序、媒体查询和深色/交互状态。Paper 当前使用 `:not(#\#)` 提升选择器优先级（全局重置有两个 ID 级权重，工具类及组件可能更高）；后加载的普通选择器不一定能覆盖它。
+- 优先采用局部且足够的选择器优先级，必要时沿用 Paper 的 `:not(#\#)` 机制；保持桌面/移动端、深色及 hover/focus 变体之间的层叠关系。避免无差别提高权重或使用 `!important`，不为解决局部冲突修改上游主题。
+- 如果线上样式未变化，不继续盲目调整数值。先确认部署提交及实际 HTML 引用的指纹 CSS，检查资源加载、缓存和目标规则；再用浏览器 DevTools 的 Styles / Computed 找到最终生效值及覆盖来源。修复后核对相关断点、配色和交互状态，必要时强制刷新。
+- CI 成功只证明构建/部署结果，不代表视觉效果正确。能访问实际浏览器时验证最终计算样式与视觉表现；工具不能完成时明确标记待验证，不宣称视觉验证通过。用户实际确认可记录为用户视觉验收。参见 CSS 优先级修复提交 `866369f`。
