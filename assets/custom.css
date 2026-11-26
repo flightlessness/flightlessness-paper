@@ -6,3 +6,11 @@
 @media (min-width: 40rem) {
   .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Back link aligned with Paper's main content. */
+.site-back-wrap { max-width: var(--w); margin-inline: auto; padding: 0.75rem 2rem 0; }
+.site-back { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.5rem; font-size: 0.875rem; color: inherit; opacity: 0.7; }
+.site-back:hover, .site-back:focus-visible { opacity: 1; }
+/* Keep the existing mobile menu; allow six icons to wrap on narrow screens. */
+#site-navigation > nav { flex-wrap: wrap; padding-inline: 1rem; }
+@media (min-width: 64rem) { #site-navigation > nav { flex-wrap: nowrap; padding-inline: 0; } }

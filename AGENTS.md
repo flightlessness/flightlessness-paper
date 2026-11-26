@@ -21,8 +21,8 @@
 | --- | --- |
 | 首页展示名和简介 | `hugo.yaml` 的 `params.name`、`params.bio`。首页正文元数据来自 `content/_index.md`，可视简介和文章列表由 `layouts/_default/list.html` 渲染。 |
 | 修改 About | `content/about.md`。页面内容使用 Paper 的单页模板。 |
-| 修改站名、菜单文字和顺序 | `hugo.yaml` 的 `title` 和 `menu.main`。文本菜单与图标共同由 `layouts/partials/header.html` 输出。 |
-| 修改导航图标、移动端菜单或深色切换 | `layouts/partials/header.html`。Home、Categories、Tags 使用内联 SVG，当前与 RSS 分支绑定。 |
+| 修改站名、菜单文字和顺序 | `hugo.yaml` 的 `title` 和 `layouts/partials/header.html` 的纯图标导航。 |
+| 修改导航图标、移动端菜单或深色切换 | `layouts/partials/header.html`。Home、Categories、Tags、About 使用独立内联 SVG；GitHub/RSS 使用 Paper 背景图标。Posts 页面保留但不在导航栏。 |
 | 修改分类或标签 | 文章 Front Matter 和 `hugo.yaml` 的 `taxonomies`。当前版本下，`layouts/_default/terms.html` 渲染分类和标签总览，`layouts/_default/taxonomy.html` 渲染单个词条的文章列表。 |
 | 修改样式 | 主题配色在 `hugo.yaml` 的 `params.color`。本地模板使用 Paper 的预编译 Tailwind CSS。新增工具类先查生成 CSS 是否包含对应选择器。需要自定义 CSS 时，可使用项目 `assets/custom.css` 覆盖 Paper 的同名占位资源，并检查生成的 CSS。 |
 | 修改文章详情、页脚、元数据 | 先核对实际解析到的 Paper 模块版本及其单页、footer、head 模板，再按需求增加局部覆盖。 |

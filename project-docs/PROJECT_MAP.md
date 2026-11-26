@@ -12,6 +12,7 @@
 
 | 状态 | 内容 |
 | --- | --- |
+| 本轮导航精简 | 方案 A：移除 Posts 菜单入口但保留页面；About 改为圆圈 i，顺序 Home、Categories、Tags、About、GitHub、RSS。非首页页头下方增加 Back，站内来源优先，直接访问回首页。手机端沿用 Paper 汉堡菜单，窄屏允许图标换行。涉及 `hugo.yaml`、`layouts/partials/header.html`、`assets/custom.css`。待部署及浏览器回归验证。 |
 | 导航栏调整 | [`90cdaaa`](https://github.com/flightlessness/flightlessness-paper/commit/90cdaaad781967e2775109093ce1f8b49475c5dc)：自定义图标独立于 RSS，GitHub 移至 Tags 与 RSS 之间，深色反色仅用于原生背景图标。 |
 | 已完成 · 隐藏文章 | 隐藏文章导航修复：分类词条页保留标题但取消不可达链接；公开文章的前后篇跳过隐藏文章；5 篇隐藏文章通过 Front Matter 的 `sitemap.disable: true` 不再列入 sitemap。涉及 `layouts/_default/{taxonomy,single}.html` 与 5 篇隐藏文章的元数据；RSS、正文和首页/Posts 展示保持不变。提交 [`f6b3584`](https://github.com/flightlessness/flightlessness-paper/commit/f6b35846f64d055d431c318e8f18e3f1b425d9f5)，Actions [#45838661569](https://github.com/flightlessness/flightlessness-paper/actions/runs/45838661569) 构建及部署成功。 |
 | 本轮完成 | 将 Paper 固定至 `f7ed52a1da04` 并提交双校验项 `go.sum`，CI 停止自动升级；为本地分类与页头补充 CSS；改善键盘操作、状态 ARIA 与图标绝对路径；将 `languageCode` 迁移为 `locale: en-US`。变更见 [`206a31c`](https://github.com/flightlessness/flightlessness-paper/commit/206a31c6071dce0e5d17e3e4e7a089cb31c79a10) 及后续修复，生产构建 [#45840480016](https://github.com/flightlessness/flightlessness-paper/actions/runs/45840480016) 已成功。 |
@@ -26,7 +27,7 @@
 | 路径 | 读取后确认的用途 |
 | --- | --- |
 | `README.md` | 说明 Markdown 写作、提交 main 后自动部署，以及 `hugo server` 预览。 |
-| `hugo.yaml` | 定义 Pages baseURL、`en-US`（界面默认 locale）、站名、robots.txt、Git 信息、分类和标签、Posts/About 菜单、Paper 配色与简介、GitHub/RSS 图标、代码高亮和前后篇开关。 |
+| `hugo.yaml` | 定义 Pages baseURL、`en-US`（界面默认 locale）、站名、robots.txt、Git 信息、分类和标签、纯图标导航（页头模板）、Paper 配色与简介、GitHub/RSS 图标、代码高亮和前后篇开关。 |
 | `go.mod` / `go.sum` | 站点依赖声明与校验文件。`go.mod` 固定 Paper 主题提交 `f7ed52a1da04`，`go.sum` 记录模块及其 go.mod 校验码，CI 只下载固定版本，升级需明确修改版本并检查产物。 |
 | `.gitignore` | 忽略构建输出 `public/`、`resources/_gen/` 和 `.hugo_build.lock`，不再忽略 `go.sum`。 |
 | `content/_index.md` | 首页标题和两段欢迎文案。模板没有把文案插入首页主体，生产 HTML 的 Open Graph、Twitter 和 Schema 描述使用了这段文案。 |
@@ -59,7 +60,7 @@ Hugo 将 Markdown 和 YAML Front Matter 转换为静态页面。模板使用 Hug
 
 Paper 的 `baseof.html` 设置背景、头像和社交图标 Scratch 值，再依次调用 `head.html`、项目覆盖的 `header.html`、当前页面的 `main` block 及主题 `footer.html`。Paper 的 `head.html` 把 `assets/main.css` 和 `assets/custom.css` 合并、压缩、计算指纹并输出带完整性校验的样式链接。
 
-页头文字取 `site.Menus.main`。已验证生成的 Posts/About 链接包含 `/flightlessness-paper/`。Home/Categories/Tags 由页头通过 `absURL` 独立输出，不再依赖 RSS 分支；内联 SVG 使用 `currentColor`，仅原生社交背景图标使用 `dark:invert`。当前顺序为 Posts、About、Home、Categories、Tags、GitHub、RSS。Paper 用 `isset` 判定社交配置键是否存在。页头脚本控制移动菜单、系统配色和保存在 `localStorage` 的深色状态。
+页头不再输出文字菜单；Posts 页面保留，About 使用内联信息图标。Home/Categories/Tags 由页头通过 `absURL` 独立输出，不再依赖 RSS 分支；内联 SVG 使用 `currentColor`，仅原生社交背景图标使用 `dark:invert`。当前顺序为 Posts、About、Home、Categories、Tags、GitHub、RSS。Paper 用 `isset` 判定社交配置键是否存在。页头脚本控制移动菜单、系统配色和保存在 `localStorage` 的深色状态。
 
 当前 taxonomy 文件名沿用旧布局的语义。Hugo 0.169.0 的线上输出已确认其分工。若将来迁移到新版布局目录，应明确使用 `layouts/taxonomy.html` 做总览，`layouts/term.html` 做单个词条，并回归检查两级页面。
 
