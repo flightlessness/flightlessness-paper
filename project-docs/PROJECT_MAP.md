@@ -6,7 +6,7 @@
 
 ## 项目管理文档
 
-根目录的 [AGENTS.md](../AGENTS.md) 记录 AI 操作规范和 Git 流程。本目录的 [ROADMAP.md](ROADMAP.md)、[DECISIONS.md](DECISIONS.md) 和 [TASKS.md](TASKS.md) 分别记录阶段规划、已确认决策和任务进度。下文的目录清单与构建证据使用上面的审计快照。项目文档采用 GitHub `main` 的当前版本。
+根目录的 [AGENTS.md](../AGENTS.md) 记录 AI 操作规范和 Git 流程。本文件记录已有功能、文件关系及实现入口。下文的构建证据使用上面的审计快照，动手前对照 GitHub `main` 上的最新源码。
 
 ## 目录与技术栈
 

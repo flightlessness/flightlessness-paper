@@ -13,3 +13,8 @@ hugo server
 ```
 
 The theme is managed as a Hugo Module.
+
+## 项目文档
+
+- [AGENTS.md](AGENTS.md) 记录协作与验证流程。
+- [PROJECT_MAP.md](project-docs/PROJECT_MAP.md) 记录已有功能、文件关系和修改入口。
