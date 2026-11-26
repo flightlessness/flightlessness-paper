@@ -12,6 +12,7 @@
 
 | 状态 | 内容 |
 | --- | --- |
+| 导航配色与提示细调 | Back 文字及箭头改为浅灰（浅色 #999、深色 #aaa）；桌面提示字号 0.875rem、内边距 7px 12px，保留 150ms 延迟。待构建及浏览器验证。 |
 | 导航细调 | Back 字号 1.25rem、常规字重；桌面自定义英文提示延迟 150ms，支持键盘焦点；手机六宫格容器与文字居中。其他布局及跳转不变，[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45847559148)，浏览器验证待完成。 |
 | 手机导航与 Back 对齐 | 手机端三列两行图标及英文名称；桌面纯图标与 title 提示；Back 复用页头布局类，字号 1rem、字重 600、箭头 20px。涉及 `layouts/partials/header.html`、`assets/custom.css`；[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45845768274)，浏览器验证待完成。 |
 | 本轮导航精简 | 方案 A：移除 Posts 菜单入口但保留页面；About 改为圆圈 i，顺序 Home、Categories、Tags、About、GitHub、RSS。非首页页头下方增加 Back，站内来源优先，直接访问回首页。手机端沿用 Paper 汉堡菜单，后续改为固定六宫格。涉及 `hugo.yaml`、`layouts/partials/header.html`、`assets/custom.css`。[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45844304563)，浏览器回归待验证。 |
