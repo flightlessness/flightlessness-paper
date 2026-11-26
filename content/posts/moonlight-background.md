@@ -4,7 +4,6 @@ date: 2020-01-04T00:00:00+08:00
 draft: false
 categories:
   - 诗
-tags: ["后知"]
 ---
 
 于是，我化作夜  
