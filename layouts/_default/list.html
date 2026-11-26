@@ -34,7 +34,22 @@ $paginator.Pages -}}<!---->
   {{- if gt .Weight 0 -}}
   <span class="mb-1 inline-block text-xs tracking-wider text-orange-500">Featured</span>
   {{- end -}}
+  {{- if $.IsHome -}}
+  {{- $categories := slice -}}
+  {{- range .Params.categories -}}
+    {{- if ne . "隐藏" -}}
+      {{- $categories = $categories | append . -}}
+    {{- end -}}
+  {{- end -}}
+  <div class="flex items-center justify-between gap-4">
+    <h2 class="my-0!" style="min-width: 0; overflow-wrap: anywhere">{{- .Title -}}</h2>
+    {{- with $categories -}}
+    <span class="shrink-0 opacity-60" style="font-size: 0.875rem; text-align: right">{{- delimit . "、" -}}</span>
+    {{- end -}}
+  </div>
+  {{- else -}}
   <h2 class="my-0!">{{- .Title -}}</h2>
+  {{- end -}}
   <time class="text-xs antialiased opacity-60">{{- .Date | time.Format ":date_medium" -}}</time>
   {{- if not (in .Params.categories "隐藏") }}
   <a class="absolute inset-0 text-[0px]" href="{{- .Permalink -}}">{{- .Title -}}</a>
