@@ -9,7 +9,7 @@
 
 /* Back uses the same width and horizontal padding utilities as the header. */
 .site-back-wrap { padding-top: 0.75rem; }
-.site-back { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.5rem; font-size: 1.25rem; font-weight: 400; color: #999; opacity: 1; }
+.site-back { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.5rem; font-size: 1.25rem; font-weight: 400; color: #b3b3b3; opacity: 1; }
 .dark .site-back { color: #aaa; }
 .site-back:hover, .site-back:focus-visible { opacity: 1; }
 /* Mobile: centered three-column icon menu. Desktop: icon-only row. */
@@ -22,7 +22,7 @@
   #site-navigation > .site-icon-nav { display: flex; align-items: center; justify-content: center; gap: 2rem; width: auto; margin-inline: 3.5rem 0; padding-inline: 0; }
   .site-icon-nav > .site-nav-link { min-height: 0; width: 24px; height: 24px; position: relative; }
   .site-nav-link > svg, .site-social-icon { width: 24px; height: 24px; }
-  .site-nav-label { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 0.875rem; padding: 7px 12px; border-radius: 4px; background: #222; color: #fff; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 80ms, visibility 0s; z-index: 60; }
+  .site-nav-label { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 0.875rem; padding: 10px 16px; border-radius: 4px; background: #222; color: #fff; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 80ms, visibility 0s; z-index: 60; }
   .dark .site-nav-label { background: #eee; color: #222; }
   .site-nav-link:hover > .site-nav-label, .site-nav-link:focus-visible > .site-nav-label { opacity: 1; visibility: visible; transition-delay: 150ms; }
 }
