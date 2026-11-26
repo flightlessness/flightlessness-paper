@@ -12,6 +12,7 @@
 
 | 状态 | 内容 |
 | --- | --- |
+| 文章首尾导航 | `layouts/_default/single.html`：可访问 Post 序列首尾缺少相邻文章时显示 Home，链接至站点首页；继续跳过隐藏文章，保留原有样式。待构建与浏览器验证。 |
 | 导航配色与提示细调 | Back 文字及箭头改为浅灰（浅色 #999、深色 #aaa）；桌面提示字号 0.875rem、内边距 7px 12px，保留 150ms 延迟。待构建及浏览器验证。 |
 | 导航细调 | Back 字号 1.25rem、常规字重；桌面自定义英文提示延迟 150ms，支持键盘焦点；手机六宫格容器与文字居中。其他布局及跳转不变，[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45847559148)，浏览器验证待完成。 |
 | 手机导航与 Back 对齐 | 手机端三列两行图标及英文名称；桌面纯图标与 title 提示；Back 复用页头布局类，字号 1rem、字重 600、箭头 20px。涉及 `layouts/partials/header.html`、`assets/custom.css`；[构建部署成功](https://github.com/flightlessness/flightlessness-paper/actions/runs/45845768274)，浏览器验证待完成。 |
