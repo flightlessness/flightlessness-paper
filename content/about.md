@@ -6,3 +6,5 @@ title: "About"
 
 这里是 flightlessness 的个人博客
 我的地球Online手册
+
+{{< about-contacts >}}

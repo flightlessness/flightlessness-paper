@@ -1,0 +1,10 @@
+<nav class="about-contacts not-prose" aria-label="Contact">
+    {{ with site.Params.github }}
+    <a href="https://github.com/{{ . }}" target="_blank" rel="me noopener" aria-label="GitHub" title="GitHub"><span class="site-social-icon dark:invert" style="background-image: url({{ "github.svg" | absURL }})" aria-hidden="true"></span></a>
+    {{ end }}
+    {{ with site.Params.email }}
+    <a href="mailto:{{ . }}" aria-label="Email" title="Email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg></a>
+    {{ else }}
+    <span class="about-email-pending" role="img" aria-label="Email (not configured)" title="Email not configured"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg></span>
+    {{ end }}
+  </nav>
