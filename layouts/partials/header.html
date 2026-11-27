@@ -83,6 +83,23 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 5-7 7 7 7M5 12h14"/></svg>
     <span>Back</span>
   </a>
+  <nav class="site-breadcrumb" aria-label="Breadcrumb">
+    <a href="{{ site.Home.Permalink }}">home</a>
+    {{ if eq .Kind "404" }}
+      <span aria-hidden="true">/</span><span aria-current="page">404</span>
+    {{ else }}
+      {{ if eq .Kind "term" }}
+        {{ with site.GetPage (printf "/%s" .Data.Plural) }}
+          <span aria-hidden="true">/</span><a href="{{ .Permalink }}">{{ .Data.Plural }}</a>
+        {{ end }}
+      {{ else if and .IsPage (eq .Section "posts") }}
+        {{ with site.GetPage "/posts" }}
+          <span aria-hidden="true">/</span><a href="{{ .Permalink }}">posts</a>
+        {{ end }}
+      {{ end }}
+      <span aria-hidden="true">/</span><a href="{{ .Permalink }}" aria-current="page">{{ path.Base (urls.Parse .RelPermalink).Path }}</a>
+    {{ end }}
+  </nav>
 </div>
 <script>
   (() => {

@@ -36,3 +36,11 @@
   #site-navigation > .site-icon-nav:not(#\#):not(#\#) { margin-left: auto; margin-right: auto; }
   .site-nav-link { text-align: center; }
 }
+
+/* Breadcrumbs beside Back; wrap long paths on narrow screens. */
+.site-back-wrap:not(#\#):not(#\#) { display: flex; align-items: center; column-gap: 1.5rem; row-gap: 0; flex-wrap: wrap; }
+.site-back:not(#\#):not(#\#) { flex-shrink: 0; }
+.site-breadcrumb:not(#\#):not(#\#) { display: flex; flex: 1 1 10rem; min-width: 0; flex-wrap: wrap; align-items: center; gap: 0.25rem; font-size: 0.875rem; line-height: 1.5; color: #999; overflow-wrap: anywhere; }
+.dark .site-breadcrumb:not(#\#):not(#\#) { color: #aaa; }
+.site-breadcrumb > a:not(#\#):not(#\#) { color: inherit; text-decoration: none; min-width: 0; overflow-wrap: anywhere; }
+.site-breadcrumb > a:hover:not(#\#):not(#\#), .site-breadcrumb > a:focus-visible:not(#\#):not(#\#) { text-decoration: underline; }
