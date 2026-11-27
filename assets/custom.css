@@ -44,3 +44,14 @@
 .dark .site-breadcrumb:not(#\#):not(#\#) { color: #aaa; }
 .site-breadcrumb > a:not(#\#):not(#\#) { color: inherit; text-decoration: none; min-width: 0; overflow-wrap: anywhere; }
 .site-breadcrumb > a:hover:not(#\#):not(#\#), .site-breadcrumb > a:focus-visible:not(#\#):not(#\#) { text-decoration: underline; }
+
+/* Public post reading tools. */
+.reading-copy:not(#\#):not(#\#) { display: inline-flex; vertical-align: middle; align-items: center; justify-content: center; margin-inline-start: .5rem; padding: .25rem; cursor: pointer; color: inherit; background: transparent; border: 0; }
+.reading-copy-status { margin-inline-start: .25rem; }
+.reading-progress:not(#\#):not(#\#) { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 70; pointer-events: none; }
+.reading-progress > div { height: 100%; background: #999; transform: scaleX(0); transform-origin: left; }
+.dark .reading-progress > div { background: #aaa; }
+.reading-top:not(#\#):not(#\#) { position: fixed; right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom)); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--bg); color: #999; cursor: pointer; z-index: 30; }
+.dark .reading-top:not(#\#):not(#\#) { color: #aaa; }
+.reading-copy[hidden]:not(#\#):not(#\#), .reading-top[hidden]:not(#\#):not(#\#) { display: none; }
+.reading-copy:focus-visible:not(#\#):not(#\#), .reading-top:focus-visible:not(#\#):not(#\#) { outline: 2px solid currentColor; outline-offset: 2px; }

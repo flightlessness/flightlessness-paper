@@ -12,6 +12,7 @@
 
 | 状态 | 内容 |
 | --- | --- |
+| 阅读辅助 · 待验证 | 公开 Post 的 `single.html` 添加日期旁复制链接、页面顶部 2px 阅读进度条、滚动 300px 后显示返回顶部；`custom.css` 负责样式。剪贴板失败提供手动复制，减少动态效果偏好下即时返回顶部；About、隐藏文章及列表不添加。待构建及浏览器验证。 |
 | 面包屑导航 · 待验证 | `header.html` 在非首页 Back 右侧生成 home / 上级 / 当前 URL 路径，文章使用 slug，404 当前项不可点击；`custom.css` 设置 14px 灰色、24px 间距、悬停/焦点下划线和窄屏换行。保留 Back 行为与实际 URL；待构建和浏览器核验。 |
 | 已完成 · 网格与菜单定向修复 | [378f16e](https://github.com/flightlessness/flightlessness-paper/commit/378f16eaf3599886eefde7e6f6a9617744506684)：补齐 `.grid`，恢复 Categories、Tags 和词条页 <640px 单列、≥640px 双列及 16px 行列间距；关闭的移动导航由 `inert`/`aria-hidden` 隔离，按 64rem 断点同步桌面可访问性；Escape 关闭并将焦点返回 Menu，`aria-expanded` 同步。保留无边框、字号、下划线与对齐；Paper 未升级。[部署 45898987742](https://github.com/flightlessness/flightlessness-paper/actions/runs/45898987742)构建及部署成功（2026-11-27 05:34:27，UTC+8）。 |
 | 已核验 · 完整浏览器回归与 CSS | 2026-11-27 05:38（UTC+8）完成 Chromium 159.0.8154.6 / WebKit 27.2 × 375/390/639/640/768/1023/1024/1440px × 浅深色。Hugo Extended 0.169.0 本地构建成功，本地 4568/4568、线上 6184/6184 断言通过；覆盖计算样式/优先级、资源与 CSS SRI、主题刷新保留、导航/提示/键盘/Back、首页命中区域、分页、公开文章前后篇与首尾 Home、隐藏列表/404/RSS/sitemap、溢出/重叠。0 Console/请求异常；51 个线上发布文件与本地生产构建逐字节一致。构建成功与浏览器通过分别核验。 |
@@ -33,7 +34,7 @@
 
 | 路径 | 读取后确认的用途 |
 | --- | --- |
-| `README.md` | 说明 Markdown 写作、提交 main 后自动部署，以及 `hugo server` 预览。 |
+| `README.md` | 博客简介、站点链接与项目文档入口。 |
 | `hugo.yaml` | 定义 Pages baseURL、`en-US`（界面默认 locale）、站名、robots.txt、Git 信息、分类和标签、纯图标导航（页头模板）、Paper 配色与简介、GitHub/RSS 图标、代码高亮和前后篇开关。 |
 | `go.mod` / `go.sum` | 站点依赖声明与校验文件。`go.mod` 固定 Paper 主题提交 `f7ed52a1da04`，`go.sum` 记录模块及其 go.mod 校验码，CI 只下载固定版本，升级需明确修改版本并检查产物。 |
 | `.gitignore` | 忽略构建输出 `public/`、`resources/_gen/` 和 `.hugo_build.lock`，不再忽略 `go.sum`。 |
