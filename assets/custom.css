@@ -83,3 +83,9 @@ a.site-index-link:not(#\#):not(#\#):not(#\#):not(#\#) { display: flex; align-ite
 .about-contacts > a, .about-contacts > span { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: inherit; }
 .about-contacts .site-social-icon, .about-contacts svg { width: 26px; height: 26px; }
 .about-email-pending { opacity: .45; }
+
+/* Homepage dates: one type step smaller on mobile. */
+.home-post-date:not(#\#):not(#\#):not(#\#):not(#\#) { font-size: 1.125rem; line-height: 1.75rem; }
+@media (max-width: 63.999rem) {
+  .home-post-date:not(#\#):not(#\#):not(#\#):not(#\#) { font-size: 1rem; line-height: 1.5rem; }
+}
