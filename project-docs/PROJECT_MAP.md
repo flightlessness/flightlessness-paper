@@ -15,7 +15,7 @@
 | 已完成 · 网格与菜单定向修复 | [378f16e](https://github.com/flightlessness/flightlessness-paper/commit/378f16eaf3599886eefde7e6f6a9617744506684)：补齐 `.grid`，恢复 Categories、Tags 和词条页 <640px 单列、≥640px 双列及 16px 行列间距；关闭的移动导航由 `inert`/`aria-hidden` 隔离，按 64rem 断点同步桌面可访问性；Escape 关闭并将焦点返回 Menu，`aria-expanded` 同步。保留无边框、字号、下划线与对齐；Paper 未升级。[部署 45898987742](https://github.com/flightlessness/flightlessness-paper/actions/runs/45898987742)构建及部署成功（2026-11-27 05:34:27，UTC+8）。 |
 | 已核验 · 完整浏览器回归与 CSS | 2026-11-27 05:38（UTC+8）完成 Chromium 159.0.8154.6 / WebKit 27.2 × 375/390/639/640/768/1023/1024/1440px × 浅深色。Hugo Extended 0.169.0 本地构建成功，本地 4568/4568、线上 6184/6184 断言通过；覆盖计算样式/优先级、资源与 CSS SRI、主题刷新保留、导航/提示/键盘/Back、首页命中区域、分页、公开文章前后篇与首尾 Home、隐藏列表/404/RSS/sitemap、溢出/重叠。0 Console/请求异常；51 个线上发布文件与本地生产构建逐字节一致。构建成功与浏览器通过分别核验。 |
 | 首页分类与日期 · 已验证 | 首页标题 24px、日期 14px、分类 18px；标题/日期覆盖层限定左列，与分类相隔 24px，分类实际点击不被覆盖；隐藏文章无详情链接，Posts 保持原行为。最初实现 `590c847`，已纳入本轮完整矩阵验证。 |
-| 分类与标签 · 已验证 | 总览词条名称无下划线、篇数保留下划线；无边框、名称 18px、篇数/词条日期保持原实际 16px、内边距 16px 20px；网格及真实间距已验证。`py-4`、Back 和提示的局部高优先级覆盖实际生效；`gap-8` 仍无调用，未作无关清理。 |
+| 分类与标签 · 已验证 | 总览词条名称及篇数无下划线；具体标签页文章标题和日期无下划线（本次修改待浏览器验证），分类详情页不变；无边框、名称 18px、篇数/词条日期保持原实际 16px、内边距 16px 20px；网格及真实间距已验证。`py-4`、Back 和提示的局部高优先级覆盖实际生效；`gap-8` 仍无调用，未作无关清理。 |
 | 导航及文章 · 已验证 | 顺序 Home、Categories、Tags、About、GitHub、RSS；手机六宫格居中、桌面图标与键盘提示通过。Back 20px/400、浅色 #999/深色 #aaa；桌面提示 14px、10px 16px、延迟 150ms。全部公开文章的前后篇跳过隐藏文章，序列首尾 Home 返回首页；404 页头/Back 已复核。 |
 | 继续观察 / 未覆盖 | WebKit 390px 深色首页曾偶发点击超时；本轮主矩阵及同组合 20 次独立点击未重现，未针对其修改代码、不标记已修复。iOS 真机 Safari、触摸/动态工具栏及无历史截图基线的逐像素验收仍未覆盖，见 ROADMAP。 |
 | 导航栏调整 | [`90cdaaa`](https://github.com/flightlessness/flightlessness-paper/commit/90cdaaad781967e2775109093ce1f8b49475c5dc)：自定义图标独立于 RSS，GitHub 移至 Tags 与 RSS 之间，深色反色仅用于原生背景图标。 |
@@ -41,7 +41,7 @@
 | `content/posts/` | 12 篇平铺的 Markdown 文件。目录没有自己的 `_index.md`，Hugo 自动生成 Posts 区段页。 |
 | `layouts/_default/single.html` | 覆盖 Paper 单篇文章模板，前后篇导航跳过隐藏文章，其余渲染沿用 Paper。 |
 | `layouts/_default/list.html` | 首页与 Posts 列表。筛选首页文章集合，渲染简介、标题、日期和分页，首页额外显示非隐藏分类链接，按「隐藏」分类决定是否输出文章链接。 |
-| `layouts/_default/terms.html` | 分类、标签总览，按 `.Data.Terms.Alphabetical` 列出词条名称及数量，名称无下划线、篇数保留下划线。 |
+| `layouts/_default/terms.html` | 分类、标签总览，按 `.Data.Terms.Alphabetical` 列出词条名称及数量，名称及篇数均无下划线。 |
 | `layouts/_default/taxonomy.html` | 单个分类或标签词条页，按 `.Pages.ByDate.Reverse` 倒序输出文章卡片；隐藏文章只显示标题和日期，不输出失效链接。 |
 | `assets/custom.css` | 补充本地模板需要、而 Paper 预编译样式未包含的 CSS 工具类。 |
 | `layouts/partials/header.html` | 本地页头覆盖层。合并文字菜单、页头图标、移动端菜单和深色切换逻辑。 |
