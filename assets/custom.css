@@ -90,6 +90,6 @@ a.site-index-link:not(#\#):not(#\#):not(#\#):not(#\#) { display: flex; align-ite
   .home-post-date:not(#\#):not(#\#):not(#\#):not(#\#) { font-size: 1rem; line-height: 1.5rem; }
 }
 
-/* Category names share the index grid and its label starting positions. */
+/* Category names share the index grid and its icon starting positions. */
 .site-category-grid:not(#\#):not(#\#):not(#\#) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.site-category-grid > a.site-term-link:not(#\#):not(#\#):not(#\#):not(#\#) { padding-inline-start: calc(32px + .75rem); }
+.site-category-grid > a.site-term-link:not(#\#):not(#\#):not(#\#):not(#\#) { padding-inline-start: 0; }
