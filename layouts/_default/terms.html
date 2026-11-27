@@ -19,7 +19,7 @@
 {{ end }}
 {{- $terms := .Data.Terms.Alphabetical -}}
 {{- if $terms -}}
-<div class="grid gap-4 sm:grid-cols-2">
+<div class="grid gap-4 sm:grid-cols-2{{ if eq .Data.Singular "category" }} site-category-grid{{ end }}">
   {{- range $terms -}}
   <a
     class="site-term-link no-underline flex items-center justify-between rounded-lg border border-black/10 px-5 py-4 transition hover:bg-black/5 dark:border-white/15 dark:hover:bg-white/5"

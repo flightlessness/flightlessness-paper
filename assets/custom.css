@@ -66,12 +66,12 @@ a.site-term-link:not(#\#):not(#\#):not(#\#):not(#\#) { text-decoration: none; }
 a.site-index-link:not(#\#):not(#\#):not(#\#):not(#\#) { display: flex; align-items: center; justify-content: space-between; gap: .5rem; color: inherit; font-weight: 500; padding: .75rem 0; }
 .site-index-name:not(#\#):not(#\#) { display: flex; align-items: center; gap: .75rem; font-size: 1.25rem; line-height: 1.25; }
 .site-index-name > svg:not(#\#):not(#\#) { width: 32px; height: 32px; flex-shrink: 0; }
-.site-index-count:not(#\#):not(#\#) { font-size: .875rem; opacity: .6; }
+.site-index-count:not(#\#):not(#\#) { font-size: 1.25rem; font-weight: 400; opacity: .6; }
 @media (max-width: 63.999rem) {
   #site-navigation > .site-icon-nav:not(#\#):not(#\#) { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 16rem; }
 }
 @media (max-width: 24rem) {
-  .site-index-name:not(#\#):not(#\#) { font-size: 1.125rem; }
+  .site-index-name:not(#\#):not(#\#), .site-index-count:not(#\#):not(#\#) { font-size: 1.125rem; }
 }
 
 /* Match index labels to the icon color and medium visual weight. */
@@ -89,3 +89,7 @@ a.site-index-link:not(#\#):not(#\#):not(#\#):not(#\#) { display: flex; align-ite
 @media (max-width: 63.999rem) {
   .home-post-date:not(#\#):not(#\#):not(#\#):not(#\#) { font-size: 1rem; line-height: 1.5rem; }
 }
+
+/* Category names share the index grid and its label starting positions. */
+.site-category-grid:not(#\#):not(#\#):not(#\#) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.site-category-grid > a.site-term-link:not(#\#):not(#\#):not(#\#):not(#\#) { padding-inline-start: calc(32px + .75rem); }
