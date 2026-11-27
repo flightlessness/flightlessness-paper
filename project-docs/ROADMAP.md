@@ -15,7 +15,7 @@
 | 暂缓&nbsp;·&nbsp;候选 | 站内搜索（Search） | 标题、正文、分类和标签索引；排除隐藏正文，文章增多后再设计。 | — |
 | 暂缓&nbsp;·&nbsp;候选 | 相关文章（Related Posts） | 按共同标签推荐公开文章，与前后篇导航协调。 | — |
 | 中&nbsp;·&nbsp;候选 | Featured（精选文章） | 已有 Weight > 0 的 Featured 标记；规划精选规则、排序和显示方式，排除隐藏文章。 | — |
-| 中&nbsp;·&nbsp;候选 | Series（文章系列） | 新增 series 分类维度、系列总览及系列内顺序和导航；与普通分类、标签区分。 | — |
+| 已实现&nbsp;·&nbsp;待验证 | Series（文章系列） | Categories 总览增加 Series 入口；具体分类页列出该分类涉及的系列；公开 Post 日期下方显示系列链接；忏悔录 1/2 按 series_order 排序并保留隐藏规则。待核验系列页、分类关联、面包屑、RSS、sitemap、公开文章链接及布局。 | — |
 | 待决定 | 个人头像 Avatar / Gravatar / 自定义头像 CDN | Paper 头像入口未使用；三种表述归并为一项，选择本地或远程头像及隐私、加载策略。 | — |
 | 待决定 | 单色深色模式切换图标 | 主题 monoDarkIcon 未启用；比较现有图标与单色样式。 | — |
 | 中&nbsp;·&nbsp;候选 | 自定义 Favicon 与 Apple Touch Icon | 设计浏览器标签页及 iOS 主屏幕图标，核验项目子路径和缓存。 | — |

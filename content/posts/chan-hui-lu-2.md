@@ -5,6 +5,8 @@ draft: false
 categories:
   - 随笔
   - 隐藏
+series: ["忏悔录"]
+series_order: 2
 build:
   render: link
 sitemap:

@@ -12,6 +12,7 @@
 
 | 状态 | 内容 |
 | --- | --- |
+| Series · 待验证 | `hugo.yaml` 增加 series taxonomy；`terms.html` 在 Categories 总览增加 Series 入口；`taxonomy.html` 在分类页下方列出涉及的系列、系列页按 `series_order` 升序排列；`single.html` 为公开系列文章提供日期下方链接。忏悔录 1/2 设置系列与顺序，隐藏规则不变；不增加顶部导航或首页标记。待构建与浏览器核验。 |
 | 日期字号与面包屑对齐 · 待验证 | 首页日期 14→18px，文章详情日期 12→16px；Back 内部文字参与基线对齐，避免首个 SVG 提供错误基线，保留 40px 按钮高度和箭头居中。待浏览器核验。 |
 | 阅读辅助 · 待验证 | 公开 Post 的 `single.html` 添加日期旁复制链接、页面顶部 2px 阅读进度条、滚动 300px 后显示返回顶部；`custom.css` 负责样式。剪贴板失败提供手动复制，减少动态效果偏好下即时返回顶部；About、隐藏文章及列表不添加。待构建及浏览器验证。 |
 | 面包屑导航 · 待验证 | `header.html` 在非首页 Back 右侧生成 home / 上级 / 当前 URL 路径，文章使用 slug，404 当前项不可点击；`custom.css` 设置 18px、独立配色（浅色 #888 / 深色 #aaa）、文字基线对齐、24px 间距、悬停/焦点下划线和窄屏换行。保留 Back 行为与实际 URL；待构建和浏览器核验。 |
@@ -36,7 +37,7 @@
 | 路径 | 读取后确认的用途 |
 | --- | --- |
 | `README.md` | 博客简介、站点链接与项目文档入口。 |
-| `hugo.yaml` | 定义 Pages baseURL、`en-US`（界面默认 locale）、站名、robots.txt、Git 信息、分类和标签、纯图标导航（页头模板）、Paper 配色与简介、GitHub/RSS 图标、代码高亮和前后篇开关。 |
+| `hugo.yaml` | 定义 Pages baseURL、`en-US`（界面默认 locale）、站名、robots.txt、Git 信息、分类、标签和系列、纯图标导航（页头模板）、Paper 配色与简介、GitHub/RSS 图标、代码高亮和前后篇开关。 |
 | `go.mod` / `go.sum` | 站点依赖声明与校验文件。`go.mod` 固定 Paper 主题提交 `f7ed52a1da04`，`go.sum` 记录模块及其 go.mod 校验码，CI 只下载固定版本，升级需明确修改版本并检查产物。 |
 | `.gitignore` | 忽略构建输出 `public/`、`resources/_gen/` 和 `.hugo_build.lock`，不再忽略 `go.sum`。 |
 | `content/_index.md` | 首页标题和两段欢迎文案。模板没有把文案插入首页主体，生产 HTML 的 Open Graph、Twitter 和 Schema 描述使用了这段文案。 |

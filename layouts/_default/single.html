@@ -27,6 +27,13 @@
       {{ end }}
     </div>
     {{- end -}}
+    {{ if $readingTools }}
+      {{ with .GetTerms "series" }}
+      <div class="antialiased opacity-60" style="font-size: 1rem; line-height: 1.5rem">
+        Series: {{ range $i, $term := . }}{{ if $i }} / {{ end }}<a class="site-term-link no-underline" href="{{ $term.Permalink }}">{{ $term.Title }}</a>{{ end }}
+      </div>
+      {{ end }}
+    {{ end }}
   </header>
 
   <section>{{- .Content -}}</section>
