@@ -55,3 +55,6 @@
 .dark .reading-top:not(#\#):not(#\#) { color: #aaa; }
 .reading-copy[hidden]:not(#\#):not(#\#), .reading-top[hidden]:not(#\#):not(#\#) { display: none; }
 .reading-copy:focus-visible:not(#\#):not(#\#), .reading-top:focus-visible:not(#\#):not(#\#) { outline: 2px solid currentColor; outline-offset: 2px; }
+
+/* Override Paper Typography link decoration on taxonomy overview cards. */
+a.site-term-link:not(#\#):not(#\#):not(#\#):not(#\#) { text-decoration: none; }
