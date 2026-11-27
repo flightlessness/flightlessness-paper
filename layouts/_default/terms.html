@@ -1,6 +1,22 @@
 {{- define "main" -}}
 <h1 class="mb-10">{{- .Title -}}</h1>
 
+{{ if eq .Data.Singular "category" }}
+  <div class="site-index-grid">
+    {{ with site.GetPage "/series" }}
+    <a class="site-term-link site-index-link" href="{{ .Permalink }}">
+      <span class="site-index-name"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="5" rx="1"/><rect x="5" y="9.5" width="14" height="5" rx="1"/><rect x="5" y="17" width="14" height="5" rx="1"/><path d="M12 7v2.5M12 14.5V17M8 4.5h8M8 12h8M8 19.5h8"/></svg><span>Series</span></span>
+      <span class="site-index-count">{{ len .Data.Terms }}</span>
+    </a>
+    {{ end }}
+    {{ with site.GetPage "/tags" }}
+    <a class="site-term-link site-index-link" href="{{ .Permalink }}">
+      <span class="site-index-name"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3.4 13.4a2 2 0 0 1 0-2.8l7.2-7.2A2 2 0 0 1 12 2.8H19a2 2 0 0 1 2 2V12a2 2 0 0 1-.4 1.4Z"/><circle cx="16.5" cy="7.5" r="1"/></svg><span>Tags</span></span>
+      <span class="site-index-count">{{ len .Data.Terms }}</span>
+    </a>
+    {{ end }}
+  </div>
+{{ end }}
 {{- $terms := .Data.Terms.Alphabetical -}}
 {{- if $terms -}}
 <div class="grid gap-4 sm:grid-cols-2">
@@ -13,14 +29,6 @@
     <span class="text-sm opacity-60">{{- .Count -}} 篇</span>
   </a>
   {{- end -}}
-  {{ if eq .Data.Singular "category" }}
-    {{ with site.GetPage "/series" }}
-    <a class="site-term-link no-underline flex items-center justify-between rounded-lg border border-black/10 px-5 py-4 transition hover:bg-black/5 dark:border-white/15 dark:hover:bg-white/5" href="{{ .Permalink }}">
-      <span class="text-lg font-medium">Series</span>
-      <span class="text-sm opacity-60">{{ len .Data.Terms }} 个系列</span>
-    </a>
-    {{ end }}
-  {{ end }}
 </div>
 {{- else -}}
 <p class="opacity-60">暂无分类。</p>

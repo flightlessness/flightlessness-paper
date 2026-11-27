@@ -59,3 +59,20 @@
 
 /* Override Paper Typography link decoration on taxonomy overview cards. */
 a.site-term-link:not(#\#):not(#\#):not(#\#):not(#\#) { text-decoration: none; }
+
+/* Categories: prominent content indexes above the ordinary categories. */
+.site-index-grid:not(#\#):not(#\#) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid #d2d0ca; }
+.dark .site-index-grid:not(#\#):not(#\#) { border-color: #555; }
+a.site-index-link:not(#\#):not(#\#):not(#\#):not(#\#) { display: flex; align-items: center; justify-content: space-between; gap: .5rem; color: inherit; font-weight: 500; padding: .75rem 0; }
+.site-index-name:not(#\#):not(#\#) { display: flex; align-items: center; gap: .5rem; font-size: 1.5rem; line-height: 1.25; }
+.site-index-name > svg:not(#\#):not(#\#) { width: 26px; height: 26px; flex-shrink: 0; }
+.site-index-count:not(#\#):not(#\#) { font-size: .875rem; opacity: .6; }
+@media (max-width: 63.999rem) {
+  #site-navigation > .site-icon-nav:not(#\#):not(#\#) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .site-icon-nav > .site-nav-link { grid-column: span 2; }
+  .site-icon-nav > .site-nav-link:nth-child(4) { grid-column: 2 / span 2; }
+  .site-icon-nav > .site-nav-link:nth-child(5) { grid-column: 4 / span 2; }
+}
+@media (max-width: 24rem) {
+  .site-index-name:not(#\#):not(#\#) { font-size: 1.25rem; }
+}
