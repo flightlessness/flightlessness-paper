@@ -11,7 +11,7 @@
     {{ end }}
     {{ with site.GetPage "/tags" }}
     <a class="site-term-link site-index-link" href="{{ .Permalink }}">
-      <span class="site-index-name"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(-.15 1)"><g transform="matrix(1.08 -.08 -.08 1.08 0 0)"><path vector-effect="non-scaling-stroke" d="M2 7V3h7l8 8a2 2 0 0 1 0 2.8l-4.2 4.2a2 2 0 0 1-2.8 0L2 10V7Z"/><path vector-effect="non-scaling-stroke" d="m14 3 8 8a2 2 0 0 1 0 2.8l-4.2 4.2"/></g><circle cx="5.92" cy="7.08" r="1.5" fill="currentColor" stroke="none"/></g></svg><span>Tags</span></span>
+      <span class="site-index-name"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(-.15 1)"><g transform="matrix(1.08 -.08 -.08 1.08 0 0)"><path d="M2 7V3h7l8 8a2 2 0 0 1 0 2.8l-4.2 4.2a2 2 0 0 1-2.8 0L2 10V7Z"/><path d="m14 3 8 8a2 2 0 0 1 0 2.8l-4.2 4.2"/></g><circle cx="5.92" cy="7.08" r="1.5" fill="currentColor" stroke="none"/></g></svg><span>Tags</span></span>
       <span class="site-index-count">{{ len .Data.Terms }}</span>
     </a>
     {{ end }}

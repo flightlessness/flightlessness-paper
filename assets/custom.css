@@ -64,18 +64,19 @@ a.site-term-link:not(#\#):not(#\#):not(#\#):not(#\#) { text-decoration: none; }
 .site-index-grid:not(#\#):not(#\#) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid #d2d0ca; }
 .dark .site-index-grid:not(#\#):not(#\#) { border-color: #555; }
 a.site-index-link:not(#\#):not(#\#):not(#\#):not(#\#) { display: flex; align-items: center; justify-content: space-between; gap: .5rem; color: inherit; font-weight: 500; padding: .75rem 0; }
-.site-index-name:not(#\#):not(#\#) { display: flex; align-items: center; gap: .75rem; font-size: 1.5rem; line-height: 1.25; }
+.site-index-name:not(#\#):not(#\#) { display: flex; align-items: center; gap: .75rem; font-size: 1.25rem; line-height: 1.25; }
 .site-index-name > svg:not(#\#):not(#\#) { width: 32px; height: 32px; flex-shrink: 0; }
 .site-index-count:not(#\#):not(#\#) { font-size: .875rem; opacity: .6; }
 @media (max-width: 63.999rem) {
   #site-navigation > .site-icon-nav:not(#\#):not(#\#) { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 16rem; }
 }
 @media (max-width: 24rem) {
-  .site-index-name:not(#\#):not(#\#) { font-size: 1.25rem; }
+  .site-index-name:not(#\#):not(#\#) { font-size: 1.125rem; }
 }
 
 /* Match index labels to the icon color and medium visual weight. */
-.site-index-name > span:not(#\#):not(#\#):not(#\#):not(#\#) { font-weight: 500; color: inherit; }
+.site-index-name > span:not(#\#):not(#\#):not(#\#):not(#\#) { font-weight: 400; color: #000; }
+.dark .site-index-name > span:not(#\#):not(#\#):not(#\#):not(#\#) { color: #fff; }
 
 /* About contact icons. The email placeholder is non-interactive until configured. */
 .about-contacts:not(#\#):not(#\#) { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; }
