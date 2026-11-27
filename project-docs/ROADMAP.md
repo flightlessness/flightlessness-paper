@@ -6,8 +6,8 @@
 
 状态说明：候选、待决定、完善和暂缓均为计划或建议，不代表已授权实施；观察中和未覆盖不等于已通过。时间均为 UTC+8；提交、部署和浏览器验证时间分别记录。
 
-| 状态&nbsp;/&nbsp;优先级<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 事项与现状 | 处理方向 | 解决 / 核验时间 |
-| --- | --- | --- | --- |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态&nbsp;/&nbsp;优先级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 事项与现状 | 处理方向 | 解决 / 核验时间 |
+| :---: | --- | --- | --- |
 | 已实现&nbsp;·&nbsp;待验证 | 复制文章链接、返回顶部、阅读进度条 | 公开文章详情页已添加；验证剪贴板及失败回退、滚动阈值、进度、浅深色、键盘及窄屏。 | — |
 | 已实现&nbsp;·&nbsp;待验证 | 面包屑导航、分类和标签下划线调整 | 核验各级链接、项目子路径、404、手机换行及最终计算样式。 | — |
 | 高&nbsp;·&nbsp;候选 | 时间归档（Archives） | 按年/月组织文章，设计入口和隐藏文章规则。 | — |
@@ -43,8 +43,8 @@
 
 ## 已完成与已决定
 
-| 状态&nbsp;/&nbsp;优先级<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 事项与现状 | 处理方向 / 证据 | 解决 / 核验时间 |
-| --- | --- | --- | --- |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态&nbsp;/&nbsp;优先级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 事项与现状 | 处理方向 / 证据 | 解决 / 核验时间 |
+| :---: | --- | --- | --- |
 | 已解决&nbsp;/&nbsp;已核验 | [378f16e](https://github.com/flightlessness/flightlessness-paper/commit/378f16eaf3599886eefde7e6f6a9617744506684) 补齐网格、隔离关闭菜单焦点、支持 Escape 与焦点返回；此前待验证的浏览器回归和 CSS 事项已合并核验。 | 本地 Hugo Extended 0.169.0 构建成功，Paper仍锁定f7ed52a1da04；本地4568/4568、线上6184/6184断言通过：Chromium/WebKit × 8宽度 × 浅深色，含640px单/双列16px实际间距、1023↔1024px菜单状态、Back/提示/键盘、首页字体与点击、分页/文章首尾、隐藏/RSS/sitemap、CSS SRI及请求。0 Console/请求异常；51个生产文件字节一致。[部署 45898987742](https://github.com/flightlessness/flightlessness-paper/actions/runs/45898987742)成功（05:34:27），Playwright独立验证。证据在仓库外包 `flightlessness-fix-2026-11-27` 的 local/online summary、artifacts及fix-results截图；测试脚本/依赖未入仓库。 | 2026-11-27 05:38（浏览器完成；修复已部署） |
 | 已解决 | 404 页面：Paper 原生模板继承本地页头与 Back；作者确认问题已解决。 | 保持现有模板；已纳入 2026-11-27 双内核线上回归，404 导航与 Back 通过。 | 2026-11-27（作者确认） |
 | 已决定 | 首页 name 与 bio 保持现状，暂不解除模板中的显示绑定。 | 不修改 `hugo.yaml` 或首页模板。 | 2026-11-27（作者决定） |
