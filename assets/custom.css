@@ -78,7 +78,7 @@ a.site-index-link:not(#\#):not(#\#):not(#\#):not(#\#) { display: flex; align-ite
 .site-index-name > span:not(#\#):not(#\#):not(#\#):not(#\#) { font-weight: 500; color: inherit; }
 
 /* About contact icons. The email placeholder is non-interactive until configured. */
-.about-contacts:not(#\#):not(#\#) { display: flex; align-items: center; gap: 1.5rem; margin-top: 2rem; }
+.about-contacts:not(#\#):not(#\#) { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; }
 .about-contacts > a, .about-contacts > span { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: inherit; }
 .about-contacts .site-social-icon, .about-contacts svg { width: 26px; height: 26px; }
 .about-email-pending { opacity: .45; }
