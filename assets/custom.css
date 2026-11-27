@@ -68,10 +68,7 @@ a.site-index-link:not(#\#):not(#\#):not(#\#):not(#\#) { display: flex; align-ite
 .site-index-name > svg:not(#\#):not(#\#) { width: 32px; height: 32px; flex-shrink: 0; }
 .site-index-count:not(#\#):not(#\#) { font-size: .875rem; opacity: .6; }
 @media (max-width: 63.999rem) {
-  #site-navigation > .site-icon-nav:not(#\#):not(#\#) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .site-icon-nav > .site-nav-link { grid-column: span 2; }
-  .site-icon-nav > .site-nav-link:nth-child(4) { grid-column: 2 / span 2; }
-  .site-icon-nav > .site-nav-link:nth-child(5) { grid-column: 4 / span 2; }
+  #site-navigation > .site-icon-nav:not(#\#):not(#\#) { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 16rem; }
 }
 @media (max-width: 24rem) {
   .site-index-name:not(#\#):not(#\#) { font-size: 1.25rem; }
@@ -79,3 +76,9 @@ a.site-index-link:not(#\#):not(#\#):not(#\#):not(#\#) { display: flex; align-ite
 
 /* Match index labels to the icon color and medium visual weight. */
 .site-index-name > span:not(#\#):not(#\#):not(#\#):not(#\#) { font-weight: 500; color: inherit; }
+
+/* About contact icons. The email placeholder is non-interactive until configured. */
+.about-contacts:not(#\#):not(#\#) { display: flex; align-items: center; gap: 1.5rem; margin-top: 2rem; }
+.about-contacts > a, .about-contacts > span { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: inherit; }
+.about-contacts .site-social-icon, .about-contacts svg { width: 26px; height: 26px; }
+.about-email-pending { opacity: .45; }
