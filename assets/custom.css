@@ -93,3 +93,9 @@ a.site-index-link:not(#\#):not(#\#):not(#\#):not(#\#) { display: flex; align-ite
 /* Category names share the index grid and its icon starting positions. */
 .site-category-grid:not(#\#):not(#\#):not(#\#) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 .site-category-grid > a.site-term-link:not(#\#):not(#\#):not(#\#):not(#\#) { padding-inline-start: 0; }
+
+/* Align numeric right edges; reserve the unit column above without displaying a unit. */
+.site-index-grid { --category-count-inset: calc(1.25rem + 1px + .875rem + .25rem); }
+a.site-index-link:not(#\#):not(#\#):not(#\#):not(#\#) { padding-inline-end: var(--category-count-inset); }
+.site-category-count:not(#\#):not(#\#):not(#\#):not(#\#) { display: inline-flex; align-items: baseline; gap: .25rem; font-size: .875rem; white-space: nowrap; }
+.site-category-count > .site-category-unit { width: .875rem; flex-shrink: 0; }

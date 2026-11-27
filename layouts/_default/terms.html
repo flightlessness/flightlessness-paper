@@ -26,7 +26,7 @@
     href="{{- .Page.Permalink -}}"
   >
     <span class="text-lg font-medium">{{- .Page.Title -}}</span>
-    <span class="text-sm opacity-60">{{- .Count -}} 篇</span>
+    {{ if eq $.Data.Singular "category" }}<span class="site-category-count text-sm opacity-60"><span>{{ .Count }}</span><span class="site-category-unit">篇</span></span>{{ else }}<span class="text-sm opacity-60">{{- .Count -}} 篇</span>{{ end }}
   </a>
   {{- end -}}
 </div>
