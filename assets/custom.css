@@ -76,3 +76,7 @@ a.site-index-link:not(#\#):not(#\#):not(#\#):not(#\#) { display: flex; align-ite
 @media (max-width: 24rem) {
   .site-index-name:not(#\#):not(#\#) { font-size: 1.25rem; }
 }
+
+/* Emphasize the two index names without changing counts or icon weight. */
+.site-index-name > span:not(#\#):not(#\#):not(#\#):not(#\#) { font-weight: 700; color: #000; }
+.dark .site-index-name > span:not(#\#):not(#\#):not(#\#):not(#\#) { color: #fff; }
