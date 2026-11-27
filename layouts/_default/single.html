@@ -11,7 +11,7 @@
     {{- if ne .Type "page" -}}
     <div class="text-xs antialiased opacity-60">
       {{- if .Date -}}
-      <time>{{- .Date | time.Format ":date_medium" -}}</time>
+      <time style="font-size: 1rem; line-height: 1.5rem">{{- .Date | time.Format ":date_medium" -}}</time>
       {{- end -}}<!---->
       {{- $single_author := or .Params.author site.Params.author -}}
       <!---->
